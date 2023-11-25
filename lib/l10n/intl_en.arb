@@ -1,0 +1,15 @@
+{
+    "@@locale": "en",
+    "excellent": "Excellent",
+    "good": "Good",
+    "couldBeBetter": "Could be better",
+    "needImprovement": "Need Improvement",
+    "quality": "Quality",
+    "quantity": "Quantity",
+    "service": "Service",
+    "hygiene": "Hygiene",
+    "submit": "Submit",
+    "shareYourExperienceWithCoffeeRestaurant": "Share your experience with Coffee Restaurant",
+    "thankYouForYourFeedback": "Thanks you for your feedback.",
+    "chooseFeedbacksBelowThatYouThinkIs": "Choose your feedbacks below that you think is"
+}
