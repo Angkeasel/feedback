@@ -39,7 +39,9 @@ class _MyHomePageState extends State<MyHomePage> {
           backgroundColor: Colors.white,
         ),
         body: Padding(
-          padding: const EdgeInsets.only(right: 25, left: 25),
+          padding: const EdgeInsets.only(
+            right: 25,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -57,8 +59,11 @@ class _MyHomePageState extends State<MyHomePage> {
                         borderRadius: BorderRadius.circular(10),
                         border:
                             Border.all(color: AppColor.mainColor, width: 1)),
-                    padding: const EdgeInsets.only(
-                        left: 15, right: 15, top: 10, bottom: 10),
+                    padding: lController.isKhmer
+                        ? const EdgeInsets.only(
+                            left: 15, bottom: 18, top: 18, right: 15)
+                        : const EdgeInsets.only(
+                            left: 15, right: 15, top: 10, bottom: 10),
                     child: Text(
                       lController.isKhmer ? "English" : "ភាសាខ្មែរ",
                       style: const TextStyle(
@@ -70,30 +75,23 @@ class _MyHomePageState extends State<MyHomePage> {
               Expanded(
                 flex: 1,
                 child: Container(
+                    height: 100,
                     width: double.infinity,
                     color: Colors.white,
                     child: Image.asset('assets/png/Group 48.png')),
               ),
-              Expanded(
-                  flex: 1,
-                  child: Column(
-                    children: [
-                      Text(
-                        L.current.shareYourExperienceWithCoffeeRestaurant,
-                        //  'What do you think about our service?',
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                            fontSize: 25, fontWeight: FontWeight.w700),
-                      ),
-                      // Text(
-                      //   '(Share your experience with Coffee Restaurant)',
-                      //   //  'What do you think about our service?',
-                      //   textAlign: TextAlign.center,
-                      //   style: TextStyle(
-                      //       fontSize: 25, fontWeight: FontWeight.w700),
-                      // ),
-                    ],
-                  )),
+              Container(
+                padding: lController.isKhmer
+                    ? const EdgeInsets.all(0)
+                    : const EdgeInsets.only(top: 5, bottom: 5),
+                //color: Colors.amber,
+                child: Text(
+                  L.current.shareYourExperienceWithCoffeeRestaurant,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                      fontSize: 27, fontWeight: FontWeight.w700),
+                ),
+              ),
               orientation == Orientation.portrait
                   ? Expanded(
                       flex: 5,
@@ -105,15 +103,13 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: GridView.builder(
                             itemBuilder: (_, int index) {
                               return CustomEmoji(
-                                image: lController.isKhmer
-                                    ? homeCon.emojiListKM[index].image
-                                    : homeCon.emojiList[index].image,
+                                image: homeCon.emojiList[index].emoji,
                                 text: lController.isKhmer
-                                    ? homeCon.emojiListKM[index].text
-                                    : homeCon.emojiList[index].text,
+                                    ? homeCon.emojiList[index].textKh
+                                    : homeCon.emojiList[index].textEn,
+                                isPadding: 18,
                                 onTap: () {
                                   debugPrint('======> testing ');
-
                                   Navigator.push(context,
                                       MaterialPageRoute(builder: (context) {
                                     return SubQuestionPage(
@@ -121,37 +117,13 @@ class _MyHomePageState extends State<MyHomePage> {
                                       date: DateFormat.yMEd()
                                           .add_jms()
                                           .format(DateTime.now()),
-                                      feedback: lController.isKhmer
-                                          ? homeCon.emojiListKM[index].text
-                                          : homeCon.emojiList[index].text,
+                                      feedback: homeCon.emojiList[index].textEn,
                                     ));
                                   }));
                                 },
-                                // onTap: () async {
-                                //   homeCon.currentIndex.value =
-                                //       homeCon.emojiList[index].text!;
-                                //   debugPrint(
-                                //       '==========> ${homeCon.currentIndex.value}');
-                                //   final id = await FeedbackSheetAPI.getRowCount() + 1;
-                                //   FeedbackModel(
-                                //     id: id,
-                                //     date: DateFormat.yMEd()
-                                //         .add_jms()
-                                //         .format(DateTime.now()),
-                                //     feedback: homeCon.emojiList[index].text,
-                                //   );
-                                //   homeCon.insertFeedback();
-                                //   homeCon.update();
-                                //   Navigator.push(context,
-                                //       MaterialPageRoute(builder: (context) {
-                                //     return const SubmitPage();
-                                // }));
-                                //},
                               );
                             },
-                            itemCount: lController.isKhmer
-                                ? homeCon.emojiListKM.length
-                                : homeCon.emojiList.length,
+                            itemCount: homeCon.emojiList.length,
                             gridDelegate:
                                 const SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 2,
@@ -170,12 +142,13 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: lController.isKhmer
-                              ? homeCon.emojiListKM.asMap().entries.map((e) {
+                              ? homeCon.emojiList.asMap().entries.map((e) {
                                   return Padding(
                                     padding: const EdgeInsets.all(50.0),
                                     child: CustomEmoji(
-                                      image: e.value.image,
-                                      text: e.value.text,
+                                      image: e.value.emoji,
+                                      text: e.value.textKh,
+                                      isPadding: 10,
                                       onTap: () {
                                         debugPrint('======> testing ');
 
@@ -187,7 +160,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                             date: DateFormat.yMEd()
                                                 .add_jms()
                                                 .format(DateTime.now()),
-                                            feedback: e.value.text,
+                                            feedback: e.value.textKh,
                                           ));
                                         }));
                                       },
@@ -198,11 +171,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                   return Padding(
                                     padding: const EdgeInsets.all(50.0),
                                     child: CustomEmoji(
-                                      image: e.value.image,
-                                      text: e.value.text,
+                                      image: e.value.emoji,
+                                      text: e.value.textEn,
+                                      isPadding: 18,
                                       onTap: () {
                                         debugPrint('======> testing ');
-
                                         Navigator.push(context,
                                             MaterialPageRoute(
                                                 builder: (context) {
@@ -211,7 +184,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                             date: DateFormat.yMEd()
                                                 .add_jms()
                                                 .format(DateTime.now()),
-                                            feedback: e.value.text,
+                                            feedback: e.value.textEn,
                                           ));
                                         }));
                                       },

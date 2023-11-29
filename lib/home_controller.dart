@@ -1,6 +1,7 @@
+import 'package:feedback/model/checkbox_model.dart';
+import 'package:feedback/model/emoji_model.dart';
 import 'package:feedback/model/feedback_model.dart';
 import 'package:feedback/model/google_sheets_api.dart';
-import 'package:feedback/widgets/custom_emoji.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -15,6 +16,7 @@ class HomeController extends GetxController {
   final feedback = FeedbackModel().obs;
   final newFeedback = FeedbackModel().obs;
   final feedbackList = <FeedbackModel>[].obs;
+  final feedbackT = ''.obs;
 
   final loading = false.obs;
   //final value = false.obs;
@@ -22,74 +24,32 @@ class HomeController extends GetxController {
   List addCheckList = <bool>[].obs;
   final formatterDate = DateFormat.yMEd().add_jms().format(DateTime.now()).obs;
 
-  List<CustomEmoji> emojiList = [
-    const CustomEmoji(
-        image: 'assets/png/Emoji_Icon_-_Smiling_large (1).webp',
-        text: 'Excellent'
-        //'Excellent',
-        ),
-    const CustomEmoji(
-      image: 'assets/png/Smiling_Emoji_Icon_-_Blushed_large.webp',
-      text: 'Good',
-    ),
-    const CustomEmoji(
-      image:
-          'assets/png/Neutral_Emoji_icon_9f1cc93a-f984-4b6c-896e-d24a643e4c28_grande.webp',
-      text: 'Could be better',
-    ),
-    const CustomEmoji(
-      image: 'assets/png/image_processing20200510-10309-w6xufo.png',
-      text: 'Need Improvement',
-    ),
-  ];
-  List<CustomEmoji> emojiListKM = [
-    const CustomEmoji(
-        image: 'assets/png/Emoji_Icon_-_Smiling_large (1).webp',
-        text: 'ពេញចិត្តខ្លាំង'
-        //'Excellent',
-        ),
-    const CustomEmoji(
-      image: 'assets/png/Smiling_Emoji_Icon_-_Blushed_large.webp',
-      text: 'ពេញចិត្ត',
-    ),
-    const CustomEmoji(
-      image:
-          'assets/png/Neutral_Emoji_icon_9f1cc93a-f984-4b6c-896e-d24a643e4c28_grande.webp',
-      text: 'គួរកែតម្រូវ',
-    ),
-    const CustomEmoji(
-      image: 'assets/png/image_processing20200510-10309-w6xufo.png',
-      text: 'មិនពេញចិត្ត',
-    ),
+  List<EmojiModel> emojiList = [
+    EmojiModel(
+        emoji: 'assets/png/Emoji_Icon_-_Smiling_large (1).webp',
+        textKh: 'ពេញចិត្តខ្លាំង',
+        textEn: 'Excellent'),
+    EmojiModel(
+        emoji: 'assets/png/Smiling_Emoji_Icon_-_Blushed_large.webp',
+        textKh: 'ពេញចិត្ត',
+        textEn: 'Good'),
+    EmojiModel(
+        emoji:
+            'assets/png/Neutral_Emoji_icon_9f1cc93a-f984-4b6c-896e-d24a643e4c28_grande.webp',
+        textKh: 'គួរកែតម្រូវ',
+        textEn: 'Could be better'),
+    EmojiModel(
+        emoji: 'assets/png/image_processing20200510-10309-w6xufo.png',
+        textKh: 'មិនពេញចិត្ត',
+        textEn: 'Need Improvement'),
   ];
   final selectedItems = <String>[].obs;
-  List<String> checkBoxList = [
-    'Quantity',
-    'Quality',
-    'Service',
-    'Hygiene',
+  List<CheckBoxModel> checkBoxList = [
+    CheckBoxModel(titleEn: 'Quantity', titleKh: 'បរិមាណ'),
+    CheckBoxModel(titleEn: 'Quality', titleKh: 'គុណភាព'),
+    CheckBoxModel(titleEn: 'Service', titleKh: 'សេវាកម្ម'),
+    CheckBoxModel(titleEn: 'Hygiene', titleKh: 'អនាម័យ'),
   ];
-  List<String> checkBoxListKM = [
-    'បរិមាណ',
-    'គុណភាព',
-    'សេវាកម្ម',
-    'អនាម័យ',
-  ];
-  // static const _localizedValues = <String, Map<String, String>>{
-  //   'en': {
-  //     'quantity': 'Quantity',
-  //     'quality': 'Quality',
-  //     'service': 'Service',
-  //     'hygiene': 'Hygiene',
-  //   },
-  //   'km': {
-  //     'quantity': 'បរិមាណ',
-  //     'quality': 'គុណភាព',
-  //     'service': 'សេវាកម្ម',
-  //     'hygiene': 'អនាម័យ',
-  //   },
-  // };
-  //  static List<String> languages() => _localizedValues.keys.toList();
 
   Future insertFeedback() async {
     loading(true);
@@ -109,28 +69,4 @@ class HomeController extends GetxController {
   }
 
 /////////////////////////
-
-  // Future<List<List<String>>> fetchData() async {
-  //   final credentials = await auth.obtainAccessCredentialsViaUserConsent(
-  //       auth.ClientId('102873799589624446595'),
-  //       ['https://www.googleapis.com/auth/spreadsheets.readonly'],
-  //       http.Client(),
-  //       (url) {});
-
-  //   final client = http.Client();
-  //   final sheetsApi = sheets.SheetsApi(client);
-  //   const spreadsheetId = '1idgEzrMrE57mmlc8WaTfILdTdpMlRMuxvuJxfIFf6_8';
-  //   const range = 'feedbacksheet!A1:B10';
-
-  //   final response = await sheetsApi.spreadsheets.values.get(
-  //     spreadsheetId,
-  //     range,
-
-  //   );
-
-  //   client.close();
-
-  //   final values = response.values;
-  //   return values;
-  // }
 }

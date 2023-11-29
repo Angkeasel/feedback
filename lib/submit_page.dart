@@ -32,19 +32,7 @@ class _SubmitPageState extends State<SubmitPage> {
       appBar: AppBar(
         centerTitle: true,
         elevation: 0,
-        backgroundColor: Colors.white,
-        leading: IconButton(
-            onPressed: () {
-              Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) {
-                return const MyHomePage();
-              }));
-              homeCon.selectedItems.clear();
-            },
-            icon: const Icon(
-              Icons.arrow_back_ios_new,
-              color: Colors.black,
-            )),
+        backgroundColor: const Color.fromRGBO(255, 255, 255, 1),
       ),
       body: Column(
         children: [

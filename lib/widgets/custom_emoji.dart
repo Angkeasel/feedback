@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CustomEmoji extends StatelessWidget {
   final String? image;
   final String? text;
   final GestureTapCallback? onTap;
-  const CustomEmoji({super.key, this.image, this.text, this.onTap});
+  final double? isPadding;
+  const CustomEmoji(
+      {super.key, this.image, this.text, this.onTap, this.isPadding});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Container(
+        width: context.width / 6,
         decoration: const BoxDecoration(
           color: Colors.white,
         ),
@@ -23,12 +27,15 @@ class CustomEmoji extends StatelessWidget {
               fit: BoxFit.cover,
               height: 150,
             ),
-            const SizedBox(
-              height: 10,
+            SizedBox(
+              height: isPadding,
             ),
             Text(
               text ?? '',
-              style: const TextStyle(fontSize: 20, color: Colors.black),
+              style: const TextStyle(
+                  fontSize: 20,
+                  color: Colors.black,
+                  fontWeight: FontWeight.w600),
               overflow: TextOverflow.ellipsis,
             ),
           ],

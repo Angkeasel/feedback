@@ -23,15 +23,30 @@ class _SubQuestionPageState extends State<SubQuestionPage> {
 
   @override
   void initState() {
+    homeCon.selectedItems.clear();
+    changeFeedback();
     debugPrint(
         '==========> model is working ${widget.feedbackModel!.feedback}');
 
     super.initState();
   }
 
+  String changeFeedback() {
+    if (widget.feedbackModel!.feedback!.contains('ពេញចិត្តខ្លាំង')) {
+      return homeCon.feedbackT.value = 'Excellent';
+    } else if (widget.feedbackModel!.feedback!.contains('ពេញចិត្ត')) {
+      return homeCon.feedbackT.value = 'Good';
+    } else if (widget.feedbackModel!.feedback!.contains('គួរកែតម្រូវ')) {
+      return homeCon.feedbackT.value = 'Could be better';
+    } else {
+      return homeCon.feedbackT.value = 'Need Improvement';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var testing = homeCon.selectedItems.join(',');
+    var orientation = MediaQuery.of(context).orientation;
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -61,11 +76,10 @@ class _SubQuestionPageState extends State<SubQuestionPage> {
                   color: Colors.white,
                   child: Image.asset('assets/png/Group 48.png')),
             ),
-            Center(
-                child: Text(
-              "${L.current.chooseFeedbacksBelowThatYouThinkIs}${widget.feedbackModel!.feedback}?",
-              style: const TextStyle(fontSize: 25, fontWeight: FontWeight.w700),
-            )),
+            Text(
+              "${L.current.chooseFeedbacksBelowThatYouThinkIs} ${widget.feedbackModel!.feedback}?",
+              style: const TextStyle(fontSize: 27, fontWeight: FontWeight.w700),
+            ),
             const SizedBox(
               height: 20,
             ),
@@ -73,34 +87,29 @@ class _SubQuestionPageState extends State<SubQuestionPage> {
               flex: 2,
               child: ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: lController.isKhmer
-                    ? homeCon.checkBoxListKM.length
-                    : homeCon.checkBoxList.length,
+                itemCount: homeCon.checkBoxList.length,
                 itemBuilder: (context, index) {
                   return CheckboxListTile(
                     title: Text(
                       lController.isKhmer
-                          ? homeCon.checkBoxListKM[index]
-                          : homeCon.checkBoxList[index],
+                          ? homeCon.checkBoxList[index].titleKh!
+                          : homeCon.checkBoxList[index].titleEn!,
                       style: const TextStyle(
-                        fontSize: 20,
+                        fontSize: 25,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
                     activeColor: AppColor.mainColor,
-                    value: homeCon.selectedItems.contains(lController.isKhmer
-                        ? homeCon.checkBoxListKM[index]
-                        : homeCon.checkBoxList[index]),
+                    value: homeCon.selectedItems
+                        .contains(homeCon.checkBoxList[index].titleEn),
                     onChanged: (value) {
                       setState(() {
                         if (value != null && value) {
-                          homeCon.selectedItems.add(lController.isKhmer
-                              ? homeCon.checkBoxListKM[index]
-                              : homeCon.checkBoxList[index]);
+                          homeCon.selectedItems
+                              .add(homeCon.checkBoxList[index].titleEn!);
                         } else {
-                          homeCon.selectedItems.remove(lController.isKhmer
-                              ? homeCon.checkBoxListKM[index]
-                              : homeCon.checkBoxList[index]);
+                          homeCon.selectedItems
+                              .remove(homeCon.checkBoxList[index].titleEn);
                         }
                       });
                     },
@@ -116,7 +125,7 @@ class _SubQuestionPageState extends State<SubQuestionPage> {
                       homeCon.newFeedback.value = FeedbackModel(
                           id: id,
                           date: widget.feedbackModel!.date,
-                          feedback: widget.feedbackModel!.feedback,
+                          feedback: homeCon.feedbackT.value,
                           reason: homeCon.selectedItems.join(','));
 
                       debugPrint(
@@ -147,15 +156,15 @@ class _SubQuestionPageState extends State<SubQuestionPage> {
                   L.current.submit,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
-                      fontSize: 20,
+                      fontSize: 23,
                       fontWeight: FontWeight.w700,
                       color: Colors.white),
                 ),
               ),
             ),
-            const Expanded(
-              flex: 1,
-              child: SizedBox(),
+            Expanded(
+              flex: orientation == Orientation.portrait ? 3 : 1,
+              child: const SizedBox(),
             )
           ],
         ),
