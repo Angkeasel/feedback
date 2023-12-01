@@ -78,7 +78,9 @@ class _SubQuestionPageState extends State<SubQuestionPage> {
             ),
             Text(
               "${L.current.chooseFeedbacksBelowThatYouThinkIs} ${widget.feedbackModel!.feedback}?",
-              style: const TextStyle(fontSize: 27, fontWeight: FontWeight.w700),
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                  fontSize: 27, fontWeight: FontWeight.w700, height: 1.5),
             ),
             const SizedBox(
               height: 20,

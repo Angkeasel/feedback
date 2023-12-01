@@ -117,7 +117,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                       date: DateFormat.yMEd()
                                           .add_jms()
                                           .format(DateTime.now()),
-                                      feedback: homeCon.emojiList[index].textEn,
+                                      feedback: lController.isKhmer
+                                          ? homeCon.emojiList[index].textKh
+                                          : homeCon.emojiList[index].textEn,
                                     ));
                                   }));
                                 },
