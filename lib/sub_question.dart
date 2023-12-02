@@ -1,11 +1,15 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:feedback/config/constants/app_colors.dart';
 import 'package:feedback/home_controller.dart';
 import 'package:feedback/language_controller.dart';
 import 'package:feedback/model/feedback_model.dart';
 import 'package:feedback/model/google_sheets_api.dart';
 import 'package:feedback/submit_page.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
 import 'generated/l10n.dart';
 
@@ -20,6 +24,7 @@ class SubQuestionPage extends StatefulWidget {
 class _SubQuestionPageState extends State<SubQuestionPage> {
   final homeCon = Get.put(HomeController());
   final lController = Get.find<LanguageController>();
+  bool isVisible = false;
 
   @override
   void initState() {
@@ -47,6 +52,7 @@ class _SubQuestionPageState extends State<SubQuestionPage> {
   Widget build(BuildContext context) {
     var testing = homeCon.selectedItems.join(',');
     var orientation = MediaQuery.of(context).orientation;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -132,19 +138,25 @@ class _SubQuestionPageState extends State<SubQuestionPage> {
 
                       debugPrint(
                           '=========> check list reason ${homeCon.newFeedback.value.reason}');
-
                       homeCon.insertFeedback();
                       // wait for 3 seconds
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return const SubmitPage();
-                      }));
-                      // Future.delayed(const Duration(seconds: 3)).then((value) {
-                      //   // Navigator.push(context,
-                      //   //     MaterialPageRoute(builder: (context) {
-                      //   //   return const SubmitPage();
-                      //   // }));
-                      // });
+                      context.loaderOverlay.show();
+                      setState(() {
+                        isVisible = context.loaderOverlay.visible;
+                      });
+                      await Future.delayed(const Duration(seconds: 3), () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return const SubmitPage();
+                        }));
+                      });
+                      if (isVisible) {
+                        context.loaderOverlay.hide();
+                      }
+
+                      setState(() {
+                        isVisible = context.loaderOverlay.visible;
+                      });
                     },
               child: Container(
                 width: double.infinity,

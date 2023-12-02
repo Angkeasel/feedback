@@ -1,9 +1,12 @@
-import 'package:feedback/home.dart';
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:feedback/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
 import 'generated/l10n.dart';
+import 'home.dart';
 
 class SubmitPage extends StatefulWidget {
   const SubmitPage({super.key});
@@ -14,15 +17,43 @@ class SubmitPage extends StatefulWidget {
 
 class _SubmitPageState extends State<SubmitPage> {
   final homeCon = Get.put(HomeController());
+  bool isVisibleSub = false;
+  BuildContext? contexts;
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 2), () {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-        return const MyHomePage();
-      }));
+    Future.delayed(const Duration(seconds: 2), () async {
+      testing(context);
+
       homeCon.selectedItems.value = [];
     });
     super.initState();
+  }
+
+  void testing(BuildContext context) async {
+    context.loaderOverlay.show(
+      progress: 'Doing progress #0',
+    );
+    setState(() {
+      isVisibleSub = context.loaderOverlay.visible;
+    });
+    await Future.delayed(const Duration(seconds: 1));
+    context.loaderOverlay.progress('Doing progress #1');
+    await Future.delayed(const Duration(seconds: 1));
+    context.loaderOverlay.progress('Doing progress #2');
+    await Future.delayed(const Duration(seconds: 1));
+    context.loaderOverlay.progress('Doing progress #3');
+    await Future.delayed(const Duration(seconds: 1));
+
+    if (isVisibleSub) {
+      context.loaderOverlay.hide();
+    }
+    await Navigator.pushReplacement(context,
+        MaterialPageRoute(builder: (context) {
+      return const MyHomePage();
+    }));
+    setState(() {
+      isVisibleSub = context.loaderOverlay.visible;
+    });
   }
 
   @override
@@ -42,10 +73,13 @@ class _SubmitPageState extends State<SubmitPage> {
                 color: Colors.white,
                 child: Image.asset('assets/png/Group 48.png')),
           ),
-          Text(
-            L.current.thankYouForYourFeedback,
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 25, fontWeight: FontWeight.w700),
+          GestureDetector(
+            onTap: () {},
+            child: Text(
+              L.current.thankYouForYourFeedback,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 25, fontWeight: FontWeight.w700),
+            ),
           ),
           Expanded(
             flex: 3,
@@ -57,7 +91,7 @@ class _SubmitPageState extends State<SubmitPage> {
               ),
             ),
           ),
-          const Spacer()
+          const Spacer(),
         ],
       ),
     );
