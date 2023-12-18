@@ -17,6 +17,7 @@ class HomeController extends GetxController {
   final newFeedback = FeedbackModel().obs;
   final feedbackList = <FeedbackModel>[].obs;
   final feedbackT = ''.obs;
+  final isLoadingsub = false.obs;
 
   final loading = false.obs;
   //final value = false.obs;

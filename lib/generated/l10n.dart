@@ -140,10 +140,10 @@ class L {
     );
   }
 
-  /// `Share your experience with Coffee Restaurant`
+  /// `Share your experience with KOFI Canteen`
   String get shareYourExperienceWithCoffeeRestaurant {
     return Intl.message(
-      'Share your experience with Coffee Restaurant',
+      'Share your experience with KOFI Canteen',
       name: 'shareYourExperienceWithCoffeeRestaurant',
       desc: '',
       args: [],

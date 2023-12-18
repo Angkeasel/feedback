@@ -32,11 +32,12 @@ class CustomEmoji extends StatelessWidget {
             ),
             Text(
               text ?? '',
+              maxLines: 3,
               style: const TextStyle(
                   fontSize: 20,
                   color: Colors.black,
                   fontWeight: FontWeight.w600),
-              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
             ),
           ],
         ),

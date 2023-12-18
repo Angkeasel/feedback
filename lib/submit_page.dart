@@ -3,10 +3,10 @@
 import 'package:feedback/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:loader_overlay/loader_overlay.dart';
 
 import 'generated/l10n.dart';
 import 'home.dart';
+import 'widgets/custom_alert_snackbar.dart';
 
 class SubmitPage extends StatefulWidget {
   const SubmitPage({super.key});
@@ -22,39 +22,46 @@ class _SubmitPageState extends State<SubmitPage> {
   @override
   void initState() {
     Future.delayed(const Duration(seconds: 2), () async {
-      testing(context);
-
+      showLoading(context: context);
+      await Future.delayed(const Duration(seconds: 1), () {
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) {
+          return const MyHomePage();
+        }));
+      });
+      hideLoading(context: context);
       homeCon.selectedItems.value = [];
     });
     super.initState();
   }
 
-  void testing(BuildContext context) async {
-    context.loaderOverlay.show(
-      progress: 'Doing progress #0',
-    );
-    setState(() {
-      isVisibleSub = context.loaderOverlay.visible;
-    });
-    await Future.delayed(const Duration(seconds: 1));
-    context.loaderOverlay.progress('Doing progress #1');
-    await Future.delayed(const Duration(seconds: 1));
-    context.loaderOverlay.progress('Doing progress #2');
-    await Future.delayed(const Duration(seconds: 1));
-    context.loaderOverlay.progress('Doing progress #3');
-    await Future.delayed(const Duration(seconds: 1));
+  // void testing(BuildContext context) async {
+  //   context.loaderOverlay.show(
+  //       // progress: 'Doing progress #0',
+  //       );
+  //   setState(() {
+  //     isVisibleSub = context.loaderOverlay.visible;
+  //   });
+  //   await Future.delayed(const Duration(seconds: 1), () {
+  //     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+  //       return const MyHomePage();
+  //     }));
+  //   });
+  //   // await Future.delayed(const Duration(seconds: 1));
+  //   // context.loaderOverlay.progress('Doing progress #1');
+  //   // await Future.delayed(const Duration(seconds: 1));
+  //   // context.loaderOverlay.progress('Doing progress #2');
+  //   // await Future.delayed(const Duration(seconds: 1));
+  //   // context.loaderOverlay.progress('Doing progress #3');
+  //   // await Future.delayed(const Duration(seconds: 1));
 
-    if (isVisibleSub) {
-      context.loaderOverlay.hide();
-    }
-    await Navigator.pushReplacement(context,
-        MaterialPageRoute(builder: (context) {
-      return const MyHomePage();
-    }));
-    setState(() {
-      isVisibleSub = context.loaderOverlay.visible;
-    });
-  }
+  //   if (isVisibleSub) {
+  //     context.loaderOverlay.hide();
+  //   }
+  //   // setState(() {
+  //   //   isVisibleSub = context.loaderOverlay.visible;
+  //   // });
+  // }
 
   @override
   Widget build(BuildContext context) {
