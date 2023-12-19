@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 
+import 'model/demo_delegate.dart';
+
 main() async {
   WidgetsFlutterBinding
       .ensureInitialized(); // mention for func init in class UserSheetsAPI
@@ -20,14 +22,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(LanguageController());
-    return GetBuilder<LanguageController>(
+    return GetBuilder(
         init: controller,
-        builder: (_) {
+        builder: (context) {
           return MaterialApp(
             home: const SplashScreen(),
             localizationsDelegates: const [
               L.delegate,
-              //DemoLocalizationsDelegate(),
+              DemoLocalizationsDelegate(),
               GlobalMaterialLocalizations.delegate,
               GlobalCupertinoLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate

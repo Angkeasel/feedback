@@ -4,7 +4,6 @@ import 'package:feedback/language_controller.dart';
 import 'package:feedback/model/feedback_model.dart';
 
 import 'package:feedback/sub_question.dart';
-import 'package:feedback/widgets/custom_alert_snackbar.dart';
 
 import 'package:feedback/widgets/custom_emoji.dart';
 import 'package:flutter/material.dart';
@@ -108,24 +107,20 @@ class _MyHomePageState extends State<MyHomePage> {
                                   : homeCon.emojiList[index].textEn,
                               isPadding: 18,
                               onTap: () async {
-                                debugPrint('======> testing ');
-                                showLoading(context: context);
-                                Future.delayed(Duration(seconds: 2), () {
-                                  Navigator.push(context,
-                                      MaterialPageRoute(builder: (context) {
-                                    return SubQuestionPage(
-                                        feedbackModel: FeedbackModel(
-                                      date: DateFormat.yMEd()
-                                          .add_jms()
-                                          .format(DateTime.now()),
-                                      feedback: lController.isKhmer
-                                          ? homeCon.emojiList[index].textKh
-                                          : homeCon.emojiList[index].textEn,
-                                    ));
-                                  }));
-                                });
-
-                                hideLoading(context: context);
+                                debugPrint(
+                                    '======> route to SubQuestion Screen ${lController.isKhmer ? 'kh' : 'en'} ');
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return SubQuestionPage(
+                                      feedbackModel: FeedbackModel(
+                                    date: DateFormat.yMEd()
+                                        .add_jms()
+                                        .format(DateTime.now()),
+                                    feedback: lController.isKhmer
+                                        ? homeCon.emojiList[index].textKh
+                                        : homeCon.emojiList[index].textEn,
+                                  ));
+                                }));
                               },
                             );
                           },
@@ -156,8 +151,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                     text: e.value.textKh,
                                     isPadding: 10,
                                     onTap: () {
-                                      debugPrint('======> testing ');
-
+                                      debugPrint(
+                                          '======> landscape screen routeKh');
                                       Navigator.push(context,
                                           MaterialPageRoute(builder: (context) {
                                         return SubQuestionPage(
@@ -179,24 +174,18 @@ class _MyHomePageState extends State<MyHomePage> {
                                     image: e.value.emoji,
                                     text: e.value.textEn,
                                     isPadding: 18,
-                                    onTap: () async {
-                                      debugPrint('======> testing ');
-                                      showLoading(context: context);
-                                      await Future.delayed(Duration(seconds: 2),
-                                          () {
-                                        Navigator.push(context,
-                                            MaterialPageRoute(
-                                                builder: (context) {
-                                          return SubQuestionPage(
-                                              feedbackModel: FeedbackModel(
-                                            date: DateFormat.yMEd()
-                                                .add_jms()
-                                                .format(DateTime.now()),
-                                            feedback: e.value.textEn,
-                                          ));
-                                        }));
-                                        hideLoading(context: context);
-                                      });
+                                    onTap: () {
+                                      debugPrint('======> landscape routeEN ');
+                                      Navigator.push(context,
+                                          MaterialPageRoute(builder: (context) {
+                                        return SubQuestionPage(
+                                            feedbackModel: FeedbackModel(
+                                          date: DateFormat.yMEd()
+                                              .add_jms()
+                                              .format(DateTime.now()),
+                                          feedback: e.value.textEn,
+                                        ));
+                                      }));
                                     },
                                   ),
                                 );

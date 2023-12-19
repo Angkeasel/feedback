@@ -1,8 +1,8 @@
 class CheckBoxModel {
-  final String? titleEn;
-  final String? titleKh;
+  final String titleEn;
+  final String titleKh;
   CheckBoxModel({
-    this.titleEn,
-    this.titleKh,
+    required this.titleEn,
+    required this.titleKh,
   });
 }

@@ -25,7 +25,7 @@ showLoading({
 hideLoading({
   required BuildContext context,
 }) {
-  Get.back();
+  Navigator.of(context).pop();
 }
 
 void showLoadings() {
@@ -34,8 +34,8 @@ void showLoadings() {
     builder: (_) => WillPopScope(
       onWillPop: () async => true,
       child: const Center(
-        child: CircularProgressIndicator.adaptive(
-          backgroundColor: AppColor.mainColor,
+        child: CircularProgressIndicator(
+          color: AppColor.mainColor,
         ),
       ),
     ),

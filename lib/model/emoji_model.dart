@@ -1,10 +1,10 @@
 class EmojiModel {
-  final String? emoji;
-  final String? textEn;
-  final String? textKh;
+  final String emoji;
+  final String textEn;
+  final String textKh;
   EmojiModel({
-    this.emoji,
-    this.textEn,
-    this.textKh,
+    required this.emoji,
+    required this.textEn,
+    required this.textKh,
   });
 }

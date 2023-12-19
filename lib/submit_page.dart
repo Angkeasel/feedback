@@ -24,44 +24,17 @@ class _SubmitPageState extends State<SubmitPage> {
     Future.delayed(const Duration(seconds: 2), () async {
       showLoading(context: context);
       await Future.delayed(const Duration(seconds: 1), () {
+        hideLoading(context: context);
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) {
           return const MyHomePage();
         }));
       });
-      hideLoading(context: context);
+
       homeCon.selectedItems.value = [];
     });
     super.initState();
   }
-
-  // void testing(BuildContext context) async {
-  //   context.loaderOverlay.show(
-  //       // progress: 'Doing progress #0',
-  //       );
-  //   setState(() {
-  //     isVisibleSub = context.loaderOverlay.visible;
-  //   });
-  //   await Future.delayed(const Duration(seconds: 1), () {
-  //     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-  //       return const MyHomePage();
-  //     }));
-  //   });
-  //   // await Future.delayed(const Duration(seconds: 1));
-  //   // context.loaderOverlay.progress('Doing progress #1');
-  //   // await Future.delayed(const Duration(seconds: 1));
-  //   // context.loaderOverlay.progress('Doing progress #2');
-  //   // await Future.delayed(const Duration(seconds: 1));
-  //   // context.loaderOverlay.progress('Doing progress #3');
-  //   // await Future.delayed(const Duration(seconds: 1));
-
-  //   if (isVisibleSub) {
-  //     context.loaderOverlay.hide();
-  //   }
-  //   // setState(() {
-  //   //   isVisibleSub = context.loaderOverlay.visible;
-  //   // });
-  // }
 
   @override
   Widget build(BuildContext context) {

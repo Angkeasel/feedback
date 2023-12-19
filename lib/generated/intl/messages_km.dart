@@ -35,7 +35,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "service": MessageLookupByLibrary.simpleMessage("សេវាកម្ម"),
         "shareYourExperienceWithCoffeeRestaurant":
             MessageLookupByLibrary.simpleMessage(
-                "ចែករំលែកបទពិសោធន៍របស់អ្នកជាមួយ ខូហ្វីCanteen"),
+                "ចែករំលែកបទពិសោធន៍របស់អ្នកជាមួយអាហារដ្ឋានខូហ្វី"),
         "submit": MessageLookupByLibrary.simpleMessage("បញ្ជូន"),
         "thankYouForYourFeedback": MessageLookupByLibrary.simpleMessage(
             "សូមអរគុណសម្រាប់ការចូលរួមផ្ដល់មតិរបស់អ្នក!")

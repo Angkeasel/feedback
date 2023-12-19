@@ -14,8 +14,8 @@ import 'package:get/get.dart';
 import 'generated/l10n.dart';
 
 class SubQuestionPage extends StatefulWidget {
-  final FeedbackModel? feedbackModel;
-  const SubQuestionPage({super.key, this.feedbackModel});
+  final FeedbackModel feedbackModel;
+  const SubQuestionPage({super.key, required this.feedbackModel});
 
   @override
   State<SubQuestionPage> createState() => _SubQuestionPageState();
@@ -31,21 +31,20 @@ class _SubQuestionPageState extends State<SubQuestionPage> {
     homeCon.selectedItems.clear();
     changeFeedback();
 
-    debugPrint(
-        '==========> model is working ${widget.feedbackModel!.feedback}');
+    debugPrint('==========> model is working ${widget.feedbackModel.feedback}');
 
     super.initState();
   }
 
   String changeFeedback() {
-    if (widget.feedbackModel!.feedback!.contains('ពេញចិត្តខ្លាំង') ||
-        widget.feedbackModel!.feedback!.contains('Excellent')) {
+    if (widget.feedbackModel.feedback!.contains('ពេញចិត្តខ្លាំង') ||
+        widget.feedbackModel.feedback!.contains('Excellent')) {
       return homeCon.feedbackT.value = 'Excellent';
-    } else if (widget.feedbackModel!.feedback!.contains('ពេញចិត្ត') ||
-        widget.feedbackModel!.feedback!.contains('Good')) {
+    } else if (widget.feedbackModel.feedback!.contains('ពេញចិត្ត') ||
+        widget.feedbackModel.feedback!.contains('Good')) {
       return homeCon.feedbackT.value = 'Good';
-    } else if (widget.feedbackModel!.feedback!.contains('គួរកែតម្រូវ') ||
-        widget.feedbackModel!.feedback!.contains('Could be better')) {
+    } else if (widget.feedbackModel.feedback!.contains('គួរកែតម្រូវ') ||
+        widget.feedbackModel.feedback!.contains('Could be better')) {
       return homeCon.feedbackT.value = 'Could be better';
     } else {
       return homeCon.feedbackT.value = 'Need Improvement';
@@ -86,7 +85,7 @@ class _SubQuestionPageState extends State<SubQuestionPage> {
                   child: Image.asset('assets/png/Group 48.png')),
             ),
             Text(
-              "${L.current.chooseFeedbacksBelowThatYouThinkIs} ${widget.feedbackModel!.feedback}?",
+              "${L.current.chooseFeedbacksBelowThatYouThinkIs} ${widget.feedbackModel.feedback}?",
               textAlign: TextAlign.center,
               style: const TextStyle(
                   fontSize: 27, fontWeight: FontWeight.w700, height: 1.5),
@@ -115,8 +114,8 @@ class _SubQuestionPageState extends State<SubQuestionPage> {
                                 orientation == Orientation.portrait ? 50 : 150),
                     title: Text(
                       lController.isKhmer
-                          ? homeCon.checkBoxList[index].titleKh!
-                          : homeCon.checkBoxList[index].titleEn!,
+                          ? homeCon.checkBoxList[index].titleKh
+                          : homeCon.checkBoxList[index].titleEn,
                       style: const TextStyle(
                         fontSize: 25,
                         fontWeight: FontWeight.w500,
@@ -129,7 +128,7 @@ class _SubQuestionPageState extends State<SubQuestionPage> {
                       setState(() {
                         if (value != null && value) {
                           homeCon.selectedItems
-                              .add(homeCon.checkBoxList[index].titleEn!);
+                              .add(homeCon.checkBoxList[index].titleEn);
                         } else {
                           homeCon.selectedItems
                               .remove(homeCon.checkBoxList[index].titleEn);
@@ -154,7 +153,7 @@ class _SubQuestionPageState extends State<SubQuestionPage> {
                 int id = await FeedbackSheetAPI.getRowCount() + 1;
                 homeCon.newFeedback.value = FeedbackModel(
                     id: id,
-                    date: widget.feedbackModel!.date,
+                    date: widget.feedbackModel.date,
                     feedback: homeCon.feedbackT.value,
                     reason: homeCon.selectedItems.join(','));
                 debugPrint(
@@ -162,10 +161,10 @@ class _SubQuestionPageState extends State<SubQuestionPage> {
                 homeCon.insertFeedback();
                 showLoading(context: context);
                 await Future.delayed(const Duration(seconds: 3), () {
+                  hideLoading(context: context);
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
                     return const SubmitPage();
                   }));
-                  hideLoading(context: context);
                 });
               },
         child: Padding(
@@ -176,7 +175,7 @@ class _SubQuestionPageState extends State<SubQuestionPage> {
                 ? EdgeInsets.all(10)
                 : const EdgeInsets.all(20),
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(30),
                 color:
                     testing == '' ? Colors.grey.shade400 : AppColor.mainColor),
             child: Text(
