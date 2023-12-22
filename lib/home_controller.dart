@@ -52,12 +52,12 @@ class HomeController extends GetxController {
     CheckBoxModel(titleEn: 'Hygiene', titleKh: 'អនាម័យ'),
   ];
 
-  Future insertFeedback() async {
+  Future<void> insertFeedback(FeedbackModel newModel) async {
     loading(true);
     try {
       feedbackList.clear();
       debugPrint('========> find new model feedback ${newFeedback.value.id}');
-      feedbackList.add(newFeedback.value);
+      feedbackList.add(newModel);
       debugPrint('=======> Print List of Users $feedbackList');
       final jsonUsers = feedbackList.map((e) => e.toJson()).toList();
       debugPrint('=========> Print Json of User Model $jsonUsers');

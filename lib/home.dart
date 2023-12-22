@@ -52,19 +52,20 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Padding(
                   padding: const EdgeInsets.only(right: 25),
                   child: Container(
+                    height: 50,
+                    width: 100,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         border:
                             Border.all(color: AppColor.mainColor, width: 1)),
-                    padding: lController.isKhmer
-                        ? const EdgeInsets.only(
-                            left: 15, bottom: 18, top: 18, right: 15)
-                        : const EdgeInsets.only(
-                            left: 15, right: 15, top: 10, bottom: 10),
-                    child: Text(
-                      lController.isKhmer ? "English" : "ភាសាខ្មែរ",
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w700, fontSize: 20),
+                    child: Center(
+                      child: Text(
+                        lController.isKhmer ? "English" : "ភាសាខ្មែរ",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: lController.isKhmer ? 18 : 16),
+                      ),
                     ),
                   ),
                 ),

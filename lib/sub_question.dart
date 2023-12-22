@@ -158,8 +158,8 @@ class _SubQuestionPageState extends State<SubQuestionPage> {
                     reason: homeCon.selectedItems.join(','));
                 debugPrint(
                     '=========> check list reason ${homeCon.newFeedback.value.reason}');
-                homeCon.insertFeedback();
                 showLoading(context: context);
+                homeCon.insertFeedback(homeCon.newFeedback.value);
                 await Future.delayed(const Duration(seconds: 3), () {
                   hideLoading(context: context);
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
