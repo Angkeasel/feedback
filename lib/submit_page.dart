@@ -41,6 +41,7 @@ class _SubmitPageState extends State<SubmitPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         centerTitle: true,
         elevation: 0,
         backgroundColor: const Color.fromRGBO(255, 255, 255, 1),

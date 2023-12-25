@@ -33,6 +33,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           centerTitle: true,
           elevation: 0,
           backgroundColor: Colors.white,
@@ -81,7 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Container(
               padding: lController.isKhmer
-                  ? const EdgeInsets.all(0)
+                  ? const EdgeInsets.only(left: 10, right: 15)
                   : const EdgeInsets.only(top: 5, bottom: 5),
               //color: Colors.amber,
               child: Text(

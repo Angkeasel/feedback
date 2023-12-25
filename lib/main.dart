@@ -5,13 +5,15 @@ import 'package:feedback/splash_screen.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+
 import 'package:get/get.dart';
 
 import 'model/demo_delegate.dart';
 
 main() async {
-  WidgetsFlutterBinding
-      .ensureInitialized(); // mention for func init in class UserSheetsAPI
+  WidgetsFlutterBinding.ensureInitialized();
+  // mention for func init in class UserSheetsAPI
+  //FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await FeedbackSheetAPI.init();
   runApp(const MyApp());
 }

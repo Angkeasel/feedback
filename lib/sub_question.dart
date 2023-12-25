@@ -78,7 +78,7 @@ class _SubQuestionPageState extends State<SubQuestionPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(
-              flex: 2,
+              flex:  1,
               child: Container(
                   width: double.infinity,
                   color: Colors.white,
@@ -161,14 +161,15 @@ class _SubQuestionPageState extends State<SubQuestionPage> {
                 showLoading(context: context);
                 homeCon.insertFeedback(homeCon.newFeedback.value);
                 await Future.delayed(const Duration(seconds: 3), () {
-                  hideLoading(context: context);
+                  hideLoading(context: context);/// testing for more details
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
                     return const SubmitPage();
                   }));
                 });
               },
         child: Padding(
-          padding: const EdgeInsets.only(left: 20, right: 20, bottom: 50),
+          padding:
+              const EdgeInsets.only(left: 20, right: 20, bottom: 30, top: 20),
           child: Container(
             width: MediaQuery.of(context).size.width * 0.2,
             padding: lController.isKhmer
@@ -178,7 +179,7 @@ class _SubQuestionPageState extends State<SubQuestionPage> {
                 borderRadius: BorderRadius.circular(30),
                 color:
                     testing == '' ? Colors.grey.shade400 : AppColor.mainColor),
-            child: Text(
+            child: Text(//check again 
               L.current.submit,
               textAlign: TextAlign.center,
               style: const TextStyle(

@@ -10,8 +10,8 @@ showLoading({
     context: context,
     builder: (context) {
       dialogContext = context;
-      return WillPopScope(
-        onWillPop: () async => true,
+      return PopScope(
+        onPopInvoked: (context) async => true,
         child: Center(
           child: CircularProgressIndicator(
             color: AppColor.mainColor,
@@ -31,8 +31,8 @@ hideLoading({
 void showLoadings() {
   showDialog(
     context: Get.overlayContext!,
-    builder: (_) => WillPopScope(
-      onWillPop: () async => true,
+    builder: (_) => PopScope(
+      onPopInvoked: (context) async => true,
       child: const Center(
         child: CircularProgressIndicator(
           color: AppColor.mainColor,
