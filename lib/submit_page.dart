@@ -25,6 +25,7 @@ class _SubmitPageState extends State<SubmitPage> {
       showLoading(context: context);
       await Future.delayed(const Duration(seconds: 1), () {
         hideLoading(context: context);
+        Navigator.popUntil(context, (route) => route.isFirst);
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) {
           return const MyHomePage();
@@ -59,16 +60,22 @@ class _SubmitPageState extends State<SubmitPage> {
             child: Text(
               L.current.thankYouForYourFeedback,
               textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 25, fontWeight: FontWeight.w700),
+              style: const TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.w700,
+                  fontFamily: 'Battambang'),
             ),
           ),
+          SizedBox(
+            height: 20,
+          ),
           Expanded(
-            flex: 3,
+            flex: 2,
             child: Center(
               child: Container(
                 decoration: const BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage('assets/png/Png.png'))),
+                        image: AssetImage('assets/png/thanks.png'))),
               ),
             ),
           ),

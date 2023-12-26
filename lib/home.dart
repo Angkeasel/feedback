@@ -7,6 +7,7 @@ import 'package:feedback/sub_question.dart';
 
 import 'package:feedback/widgets/custom_emoji.dart';
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -64,6 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         lController.isKhmer ? "English" : "ភាសាខ្មែរ",
                         textAlign: TextAlign.center,
                         style: TextStyle(
+                            fontFamily: 'Battambang',
                             fontWeight: FontWeight.w700,
                             fontSize: lController.isKhmer ? 18 : 16),
                       ),
@@ -88,8 +90,11 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Text(
                 L.current.shareYourExperienceWithCoffeeRestaurant,
                 textAlign: TextAlign.center,
-                style:
-                    const TextStyle(fontSize: 27, fontWeight: FontWeight.w700),
+                style: const TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.w700,
+                  fontFamily: 'Battambang',
+                ),
               ),
             ),
             orientation == Orientation.portrait
@@ -107,7 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               text: lController.isKhmer
                                   ? homeCon.emojiList[index].textKh
                                   : homeCon.emojiList[index].textEn,
-                              isPadding: 18,
+                              isPadding: 15,
                               onTap: () async {
                                 debugPrint(
                                     '======> route to SubQuestion Screen ${lController.isKhmer ? 'kh' : 'en'} ');
@@ -147,7 +152,8 @@ class _MyHomePageState extends State<MyHomePage> {
                         children: lController.isKhmer
                             ? homeCon.emojiList.asMap().entries.map((e) {
                                 return Padding(
-                                  padding: const EdgeInsets.all(50.0),
+                                  padding: const EdgeInsets.only(
+                                      left: 40, right: 40),
                                   child: CustomEmoji(
                                     image: e.value.emoji,
                                     text: e.value.textKh,
@@ -171,7 +177,8 @@ class _MyHomePageState extends State<MyHomePage> {
                               }).toList()
                             : homeCon.emojiList.asMap().entries.map((e) {
                                 return Padding(
-                                  padding: const EdgeInsets.all(50.0),
+                                  padding: const EdgeInsets.only(
+                                      left: 40, right: 40),
                                   child: CustomEmoji(
                                     image: e.value.emoji,
                                     text: e.value.textEn,
@@ -195,6 +202,20 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                   ),
+            Center(
+              child: Text(
+                L.current.qoute,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontFamily: 'Battambang',
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                    color: AppColor.mainColor),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            )
           ],
         ));
   }

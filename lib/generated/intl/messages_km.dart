@@ -30,6 +30,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "good": MessageLookupByLibrary.simpleMessage("ពេញចិត្ត"),
         "hygiene": MessageLookupByLibrary.simpleMessage("អនាម័យ"),
         "needImprovement": MessageLookupByLibrary.simpleMessage("មិនពេញចិត្ត"),
+        "qoute": MessageLookupByLibrary.simpleMessage(
+            "ខូហ្វីជាជម្រើសដ៏ប្រសើរ យើងប្តេជ្ញាផ្តល់ឱ្យលោកអ្នកនូវបទពិសោធន៍ល្អៗ"),
         "quality": MessageLookupByLibrary.simpleMessage("គុណភាព"),
         "quantity": MessageLookupByLibrary.simpleMessage("បរិមាណ"),
         "service": MessageLookupByLibrary.simpleMessage("សេវាកម្ម"),

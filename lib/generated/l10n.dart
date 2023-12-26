@@ -169,6 +169,16 @@ class L {
       args: [],
     );
   }
+
+  /// `KOFI is employer of choice; We are committed to providing you with good experiences`
+  String get qoute {
+    return Intl.message(
+      'KOFI is employer of choice; We are committed to providing you with good experiences',
+      name: 'qoute',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<L> {

@@ -27,20 +27,17 @@ class HomeController extends GetxController {
 
   List<EmojiModel> emojiList = [
     EmojiModel(
-        emoji: 'assets/png/Emoji_Icon_-_Smiling_large (1).webp',
+        emoji: 'assets/png/excellent.png',
         textKh: 'ពេញចិត្តខ្លាំង',
         textEn: 'Excellent'),
     EmojiModel(
-        emoji: 'assets/png/Smiling_Emoji_Icon_-_Blushed_large.webp',
-        textKh: 'ពេញចិត្ត',
-        textEn: 'Good'),
+        emoji: 'assets/png/good.png', textKh: 'ពេញចិត្ត', textEn: 'Good'),
     EmojiModel(
-        emoji:
-            'assets/png/Neutral_Emoji_icon_9f1cc93a-f984-4b6c-896e-d24a643e4c28_grande.webp',
+        emoji: 'assets/png/couldbetter.png',
         textKh: 'គួរកែតម្រូវ',
         textEn: 'Could be better'),
     EmojiModel(
-        emoji: 'assets/png/image_processing20200510-10309-w6xufo.png',
+        emoji: 'assets/png/inprovement.png',
         textKh: 'មិនពេញចិត្ត',
         textEn: 'Need Improvement'),
   ];

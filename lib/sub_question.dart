@@ -78,7 +78,7 @@ class _SubQuestionPageState extends State<SubQuestionPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(
-              flex:  1,
+              flex: 1,
               child: Container(
                   width: double.infinity,
                   color: Colors.white,
@@ -88,7 +88,10 @@ class _SubQuestionPageState extends State<SubQuestionPage> {
               "${L.current.chooseFeedbacksBelowThatYouThinkIs} ${widget.feedbackModel.feedback}?",
               textAlign: TextAlign.center,
               style: const TextStyle(
-                  fontSize: 27, fontWeight: FontWeight.w700, height: 1.5),
+                  fontFamily: 'Battambang',
+                  fontSize: 27,
+                  fontWeight: FontWeight.w700,
+                  height: 1.5),
             ),
             const SizedBox(
               height: 20,
@@ -117,8 +120,9 @@ class _SubQuestionPageState extends State<SubQuestionPage> {
                           ? homeCon.checkBoxList[index].titleKh
                           : homeCon.checkBoxList[index].titleEn,
                       style: const TextStyle(
+                        fontFamily: 'Battambang',
                         fontSize: 25,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                     activeColor: AppColor.mainColor,
@@ -161,7 +165,9 @@ class _SubQuestionPageState extends State<SubQuestionPage> {
                 showLoading(context: context);
                 homeCon.insertFeedback(homeCon.newFeedback.value);
                 await Future.delayed(const Duration(seconds: 3), () {
-                  hideLoading(context: context);/// testing for more details
+                  hideLoading(context: context);
+
+                  /// testing for more details
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
                     return const SubmitPage();
                   }));
@@ -179,10 +185,12 @@ class _SubQuestionPageState extends State<SubQuestionPage> {
                 borderRadius: BorderRadius.circular(30),
                 color:
                     testing == '' ? Colors.grey.shade400 : AppColor.mainColor),
-            child: Text(//check again 
+            child: Text(
+              //check again
               L.current.submit,
               textAlign: TextAlign.center,
               style: const TextStyle(
+                  fontFamily: 'Battambang',
                   fontSize: 23,
                   fontWeight: FontWeight.w700,
                   color: Colors.white),
