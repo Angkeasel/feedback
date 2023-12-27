@@ -1,12 +1,11 @@
-
 import 'package:feedback/model/feedback_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:gsheets/gsheets.dart';
 
-class FeedbackSheetAPI{
- static const spreadsheetId = '1idgEzrMrE57mmlc8WaTfILdTdpMlRMuxvuJxfIFf6_8';
- //==============================>>>> JSON GoogleSheet
- static const credential = r'''{
+class FeedbackSheetAPI {
+  static const spreadsheetId = '1idgEzrMrE57mmlc8WaTfILdTdpMlRMuxvuJxfIFf6_8';
+  //==============================>>>> JSON GoogleSheet
+  static const credential = r'''{
   "type": "service_account",
   "project_id": "feedback-400109",
   "private_key_id": "e492f1e92d833969822e832b6bea0aec904a77d0",
@@ -21,38 +20,41 @@ class FeedbackSheetAPI{
 }
 ''';
 //==============================>>>> initail value
- static final gsheets = GSheets(credential);
- static Worksheet? feedbackSheet;
+  static final gsheets = GSheets(credential);
+  static Worksheet? feedbackSheet;
 //==============================>>>> Function init
- static Future init()async{ 
-try{
-   final spreadsheet = await gsheets.spreadsheet(spreadsheetId);
-  feedbackSheet = await getWorksheet(spreadsheet,  title: 'feedbacksheet');
-  final firstRow = FeedbackFields().getFields();
-  feedbackSheet?.values.insertRow( 1, firstRow);
-}catch(e){
- debugPrint('Print Error $e');
-}
- }
+  static Future init() async {
+    try {
+      final spreadsheet = await gsheets.spreadsheet(spreadsheetId);
+      feedbackSheet = await getWorksheet(spreadsheet, title: 'feedbacksheet');
+      final firstRow = FeedbackFields().getFields();
+      feedbackSheet?.values.insertRow(1, firstRow);
+    } catch (e) {
+      debugPrint('Print Error $e');
+    }
+  }
+
 //==============================>>>> getWorksheet Function
- static Future<Worksheet> getWorksheet(Spreadsheet spreadsheet,{required String title})async{
-try{
-  return  await spreadsheet.addWorksheet(title);
-  }catch(e){
-   return spreadsheet.worksheetByTitle(title)!;
+  static Future<Worksheet> getWorksheet(Spreadsheet spreadsheet,
+      {required String title}) async {
+    try {
+      return await spreadsheet.addWorksheet(title);
+    } catch (e) {
+      return spreadsheet.worksheetByTitle(title)!;
+    }
   }
- }
+
 //==============================>>>> Inset Row
- static Future<void> insert(List<Map<String, dynamic>> rowList) async {
-    if (feedbackSheet == null) return;
-    await feedbackSheet?.values.map.appendRows(rowList);
-    debugPrint('=======> UserSheet1 $feedbackSheet');
-    debugPrint('=======> UserSheet2 $rowList');
-  }
+  // static Future<void> insert(List<Map<String, dynamic>> rowList) async {
+  //   if (feedbackSheet == null) return;
+  //   await feedbackSheet?.values.map.appendRows(rowList);
+  //   debugPrint('=======> UserSheet1 $feedbackSheet');
+  //   debugPrint('=======> UserSheet2 $rowList');
+  // }
 //==============================>>>> get Row
-  static Future<int> getRowCount() async {
-    if (feedbackSheet == null) return 0;
-    final lastRow = await feedbackSheet!.values.lastRow();
-    return int.tryParse(lastRow!.first) ?? 0;
-  }
+  // static Future<int> getRowCount() async {
+  //   if (feedbackSheet == null) return 0;
+  //   final lastRow = await feedbackSheet!.values.lastRow();
+  //   return int.tryParse(lastRow!.first) ?? 0;
+  // }
 }

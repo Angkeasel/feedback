@@ -154,16 +154,19 @@ class _SubQuestionPageState extends State<SubQuestionPage> {
         onTap: testing == ''
             ? () {}
             : () async {
-                int id = await FeedbackSheetAPI.getRowCount() + 1;
+// int id = await FeedbackSheetAPI.getRowCount() + 1;
                 homeCon.newFeedback.value = FeedbackModel(
-                    id: id,
+                    // id: id,
                     date: widget.feedbackModel.date,
                     feedback: homeCon.feedbackT.value,
                     reason: homeCon.selectedItems.join(','));
-                debugPrint(
-                    '=========> check list reason ${homeCon.newFeedback.value.reason}');
+
                 showLoading(context: context);
-                homeCon.insertFeedback(homeCon.newFeedback.value);
+                debugPrint(
+                    '====> after submit ${homeCon.newFeedback.value.feedback}');
+                //submit data
+                homeCon.submit(homeCon.newFeedback.value);
+                debugPrint('====> submit to ${homeCon.newFeedback.value}');
                 await Future.delayed(const Duration(seconds: 3), () {
                   hideLoading(context: context);
 

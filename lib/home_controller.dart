@@ -5,6 +5,8 @@ import 'package:feedback/model/google_sheets_api.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert' as convert;
 
 // import 'package:googleapis/sheets/v4.dart' as sheets;
 // import 'package:googleapis_auth/auth_io.dart' as auth;
@@ -12,6 +14,8 @@ import 'package:intl/intl.dart';
 //import 'package:http/http.dart' as http;
 
 class HomeController extends GetxController {
+  static const String URL =
+      'https://script.google.com/macros/s/AKfycbxcyqVAN4-Oky6wRO4XLxsgHkiQFnsMTg4iDlUjxGLbHGxdJcfhB1xaZMqp6pVieeop/exec';
   final currentIndex = ''.obs;
   final feedback = FeedbackModel().obs;
   final newFeedback = FeedbackModel().obs;
@@ -49,20 +53,35 @@ class HomeController extends GetxController {
     CheckBoxModel(titleEn: 'Hygiene', titleKh: 'អនាម័យ'),
   ];
 
-  Future<void> insertFeedback(FeedbackModel newModel) async {
-    loading(true);
+  // Future<void> insertFeedback(FeedbackModel newModel) async {
+  //   loading(true);
+  //   try {
+  //     feedbackList.clear();
+  //     // debugPrint('========> find new model feedback ${newFeedback.value.id}');
+  //     feedbackList.add(newModel);
+  //     debugPrint('=======> Print List of Users $feedbackList');
+  //     final jsonUsers = feedbackList.map((e) => e.toJson()).toList();
+  //     debugPrint('=========> Print Json of User Model $jsonUsers');
+  //     await FeedbackSheetAPI.insert(jsonUsers);
+  //     loading(false);
+  //   } catch (e) {
+  //     loading(false);
+  //     debugPrint('========> error$e');
+  //   }
+  // }
+
+  // submit form
+  static const STATUS_SUCCESS = "SUCCESS";
+  Future<void> submit(
+    FeedbackModel newModel,
+  ) async {
     try {
-      feedbackList.clear();
-      debugPrint('========> find new model feedback ${newFeedback.value.id}');
-      feedbackList.add(newModel);
-      debugPrint('=======> Print List of Users $feedbackList');
-      final jsonUsers = feedbackList.map((e) => e.toJson()).toList();
-      debugPrint('=========> Print Json of User Model $jsonUsers');
-      await FeedbackSheetAPI.insert(jsonUsers);
-      loading(false);
+      var url = Uri.parse(URL);
+      await http.post(url, body: newModel.toJson()).then((response) async {
+        debugPrint(' add new model $response');
+      });
     } catch (e) {
-      loading(false);
-      debugPrint('========> error$e');
+      debugPrint('error $e');
     }
   }
 
