@@ -1,23 +1,15 @@
 import 'package:feedback/config/constants/app_colors.dart';
 import 'package:feedback/home_controller.dart';
 import 'package:feedback/language_controller.dart';
-import 'package:feedback/model/feedback_model.dart';
-
+import 'package:feedback/model/emoji_model.dart';
 import 'package:feedback/sub_question.dart';
-
 import 'package:feedback/widgets/custom_emoji.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
-
 import 'generated/l10n.dart';
-// import 'package:intl/intl.dart';
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({
-    super.key,
-  });
+  const MyHomePage({super.key});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -26,20 +18,33 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final homeCon = Get.put(HomeController());
   final lController = Get.find<LanguageController>();
-  bool isLoadinghome = false;
+
+  void _pushToSubQuestionPage(EmojiModel emojiModel) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
+          return SubQuestionPage(
+            emojiModel: emojiModel,
+          );
+        },
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    var orientation = MediaQuery.of(context).orientation;
+    final orientation = MediaQuery.of(context).orientation;
     return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          centerTitle: true,
-          elevation: 0,
-          backgroundColor: Colors.white,
-        ),
-        body: Column(
+      backgroundColor: Colors.white,
+      // appBar: AppBar(
+      //   automaticallyImplyLeading: false,
+      //   centerTitle: true,
+      //   elevation: 0,
+      //   backgroundColor: Colors.white,
+      // ),
+      body: SafeArea(
+        child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -62,7 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             Border.all(color: AppColor.mainColor, width: 1)),
                     child: Center(
                       child: Text(
-                        lController.isKhmer ? "English" : "ភាសាខ្មែរ",
+                        lController.isKhmer ? 'English' : 'ភាសាខ្មែរ',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontFamily: 'Battambang',
@@ -102,41 +107,36 @@ class _MyHomePageState extends State<MyHomePage> {
                     flex: 5,
                     child: SingleChildScrollView(
                       child: Container(
+                        clipBehavior: Clip.antiAlias,
                         decoration: const BoxDecoration(
-                            gradient: RadialGradient(
-                                colors: [Colors.black, Colors.white])),
+                          gradient: RadialGradient(
+                            colors: [
+                              Colors.black,
+                              Colors.white,
+                            ],
+                          ),
+                        ),
                         child: GridView.builder(
-                          itemBuilder: (_, int index) {
+                          itemBuilder: (_, index) {
+                            final emojiModel = homeCon.emojiList[index];
                             return CustomEmoji(
-                              image: homeCon.emojiList[index].emoji,
+                              image: emojiModel.emoji,
                               text: lController.isKhmer
-                                  ? homeCon.emojiList[index].textKh
-                                  : homeCon.emojiList[index].textEn,
+                                  ? emojiModel.textKh
+                                  : emojiModel.textEn,
                               isPadding: 15,
                               onTap: () async {
-                                debugPrint(
-                                    '======> route to SubQuestion Screen ${lController.isKhmer ? 'kh' : 'en'} ');
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return SubQuestionPage(
-                                      feedbackModel: FeedbackModel(
-                                    date: DateFormat.yMEd()
-                                        .add_jms()
-                                        .format(DateTime.now()),
-                                    feedback: lController.isKhmer
-                                        ? homeCon.emojiList[index].textKh
-                                        : homeCon.emojiList[index].textEn,
-                                  ));
-                                }));
+                                _pushToSubQuestionPage(emojiModel);
                               },
                             );
                           },
                           itemCount: homeCon.emojiList.length,
                           gridDelegate:
                               const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  crossAxisSpacing: 2,
-                                  mainAxisSpacing: 2),
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 2,
+                            mainAxisSpacing: 2,
+                          ),
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                         ),
@@ -159,18 +159,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     text: e.value.textKh,
                                     isPadding: 10,
                                     onTap: () {
-                                      debugPrint(
-                                          '======> landscape screen routeKh');
-                                      Navigator.push(context,
-                                          MaterialPageRoute(builder: (context) {
-                                        return SubQuestionPage(
-                                            feedbackModel: FeedbackModel(
-                                          date: DateFormat.yMEd()
-                                              .add_jms()
-                                              .format(DateTime.now()),
-                                          feedback: e.value.textKh,
-                                        ));
-                                      }));
+                                      _pushToSubQuestionPage(e.value);
                                     },
                                   ),
                                 );
@@ -184,17 +173,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     text: e.value.textEn,
                                     isPadding: 18,
                                     onTap: () {
-                                      debugPrint('======> landscape routeEN ');
-                                      Navigator.push(context,
-                                          MaterialPageRoute(builder: (context) {
-                                        return SubQuestionPage(
-                                            feedbackModel: FeedbackModel(
-                                          date: DateFormat.yMEd()
-                                              .add_jms()
-                                              .format(DateTime.now()),
-                                          feedback: e.value.textEn,
-                                        ));
-                                      }));
+                                      _pushToSubQuestionPage(e.value);
                                     },
                                   ),
                                 );
@@ -202,21 +181,24 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                   ),
-            Center(
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 L.current.qoute,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                     fontFamily: 'Battambang',
                     fontSize: 14,
                     fontWeight: FontWeight.w700,
                     color: AppColor.mainColor),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             )
           ],
-        ));
+        ),
+      ),
+    );
   }
 }

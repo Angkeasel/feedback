@@ -1,8 +1,7 @@
 import 'package:feedback/generated/l10n.dart';
+import 'package:feedback/home.dart';
 import 'package:feedback/language_controller.dart';
 import 'package:feedback/model/google_sheets_api.dart';
-import 'package:feedback/splash_screen.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -28,7 +27,7 @@ class MyApp extends StatelessWidget {
         init: controller,
         builder: (context) {
           return MaterialApp(
-            home: const SplashScreen(),
+            home: const MyHomePage(),
             localizationsDelegates: const [
               L.delegate,
               DemoLocalizationsDelegate(),

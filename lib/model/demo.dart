@@ -11,16 +11,16 @@ class DemoLocalizations {
 
   static const _localizedValues = <String, Map<String, String>>{
     'en': {
-      "quantity": 'Quantity',
-      "quality": 'Quality',
-      "service": 'Service',
-      "hygiene": 'Hygiene',
+      'quantity': 'Quantity',
+      'quality': 'Quality',
+      'service': 'Service',
+      'hygiene': 'Hygiene',
     },
     'km': {
-      "quantity": 'បរិមាណ',
-      "quality": 'គុណភាព',
-      "service": 'សេវាកម្ម',
-      "hygiene": 'អនាម័យ',
+      'quantity': 'បរិមាណ',
+      'quality': 'គុណភាព',
+      'service': 'សេវាកម្ម',
+      'hygiene': 'អនាម័យ',
     },
   };
 

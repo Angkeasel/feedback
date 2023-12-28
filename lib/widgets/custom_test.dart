@@ -31,7 +31,7 @@ onShowModelBottomSheet(
                   ),
                 ),
               ),
-              SvgPicture.asset("assets/image/asset/Group 47.svg"),
+              SvgPicture.asset('assets/image/asset/Group 47.svg'),
               const SizedBox(
                 height: 30,
               ),

@@ -1,14 +1,16 @@
 import 'package:feedback/model/feedback_fields.dart';
 
 class FeedbackModel {
-  final String? feedback;
-  final String? date;
-  final String? reason;
-  FeedbackModel({this.date, this.feedback, this.reason});
-  
+  final String feedback;
+  final String reason;
+
+  FeedbackModel({
+    required this.feedback,
+    required this.reason,
+  });
+
   Map<String, dynamic> toJson() => {
         FeedbackFields.feedback: feedback,
-        FeedbackFields.date: date,
-        FeedbackFields.reason: reason
+        FeedbackFields.reason: reason,
       };
 }

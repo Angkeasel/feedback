@@ -1,89 +1,76 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:feedback/model/checkbox_model.dart';
 import 'package:feedback/model/emoji_model.dart';
 import 'package:feedback/model/feedback_model.dart';
-import 'package:feedback/model/google_sheets_api.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert' as convert;
 
-// import 'package:googleapis/sheets/v4.dart' as sheets;
-// import 'package:googleapis_auth/auth_io.dart' as auth;
-// import 'package:intl/intl.dart';
-//import 'package:http/http.dart' as http;
+const String _URL =
+    'https://script.google.com/macros/s/AKfycbw16_IlrCQDwXqkenqiCXcbw4ekWMQl5d14s1L_eidKGlRFnTLH8rbjLoiuIUW0YF-H/exec';
 
 class HomeController extends GetxController {
-  static const String URL =
-      'https://script.google.com/macros/s/AKfycbxcyqVAN4-Oky6wRO4XLxsgHkiQFnsMTg4iDlUjxGLbHGxdJcfhB1xaZMqp6pVieeop/exec';
-  final currentIndex = ''.obs;
-  final feedback = FeedbackModel().obs;
-  final newFeedback = FeedbackModel().obs;
-  final feedbackList = <FeedbackModel>[].obs;
-  final feedbackT = ''.obs;
-  final isLoadingsub = false.obs;
+  List<EmojiModel> get emojiList => [
+        EmojiModel(
+            emoji: 'assets/png/excellent.png',
+            textKh: 'ពេញចិត្តខ្លាំង',
+            textEn: 'Excellent'),
+        EmojiModel(
+            emoji: 'assets/png/good.png', textKh: 'ពេញចិត្ត', textEn: 'Good'),
+        EmojiModel(
+            emoji: 'assets/png/couldbetter.png',
+            textKh: 'គួរកែតម្រូវ',
+            textEn: 'Could be better'),
+        EmojiModel(
+            emoji: 'assets/png/inprovement.png',
+            textKh: 'មិនពេញចិត្ត',
+            textEn: 'Need Improvement'),
+      ];
 
-  final loading = false.obs;
-  //final value = false.obs;
-  //final lable = ''.obs;
-  List addCheckList = <bool>[].obs;
-  final formatterDate = DateFormat.yMEd().add_jms().format(DateTime.now()).obs;
+  List<CheckBoxModel> get _checkBoxList => [
+        CheckBoxModel(titleEn: 'Quantity', titleKh: 'បរិមាណ'),
+        CheckBoxModel(titleEn: 'Quality', titleKh: 'គុណភាព'),
+        CheckBoxModel(titleEn: 'Service', titleKh: 'សេវាកម្ម'),
+        CheckBoxModel(titleEn: 'Hygiene', titleKh: 'អនាម័យ'),
+      ];
 
-  List<EmojiModel> emojiList = [
-    EmojiModel(
-        emoji: 'assets/png/excellent.png',
-        textKh: 'ពេញចិត្តខ្លាំង',
-        textEn: 'Excellent'),
-    EmojiModel(
-        emoji: 'assets/png/good.png', textKh: 'ពេញចិត្ត', textEn: 'Good'),
-    EmojiModel(
-        emoji: 'assets/png/couldbetter.png',
-        textKh: 'គួរកែតម្រូវ',
-        textEn: 'Could be better'),
-    EmojiModel(
-        emoji: 'assets/png/inprovement.png',
-        textKh: 'មិនពេញចិត្ត',
-        textEn: 'Need Improvement'),
-  ];
-  final selectedItems = <String>[].obs;
-  List<CheckBoxModel> checkBoxList = [
-    CheckBoxModel(titleEn: 'Quantity', titleKh: 'បរិមាណ'),
-    CheckBoxModel(titleEn: 'Quality', titleKh: 'គុណភាព'),
-    CheckBoxModel(titleEn: 'Service', titleKh: 'សេវាកម្ម'),
-    CheckBoxModel(titleEn: 'Hygiene', titleKh: 'អនាម័យ'),
-  ];
+  List<CheckBoxModel> checkBoxList = [];
 
-  // Future<void> insertFeedback(FeedbackModel newModel) async {
-  //   loading(true);
-  //   try {
-  //     feedbackList.clear();
-  //     // debugPrint('========> find new model feedback ${newFeedback.value.id}');
-  //     feedbackList.add(newModel);
-  //     debugPrint('=======> Print List of Users $feedbackList');
-  //     final jsonUsers = feedbackList.map((e) => e.toJson()).toList();
-  //     debugPrint('=========> Print Json of User Model $jsonUsers');
-  //     await FeedbackSheetAPI.insert(jsonUsers);
-  //     loading(false);
-  //   } catch (e) {
-  //     loading(false);
-  //     debugPrint('========> error$e');
-  //   }
-  // }
-
-  // submit form
-  static const STATUS_SUCCESS = "SUCCESS";
-  Future<void> submit(
-    FeedbackModel newModel,
-  ) async {
-    try {
-      var url = Uri.parse(URL);
-      await http.post(url, body: newModel.toJson()).then((response) async {
-        debugPrint(' add new model $response');
-      });
-    } catch (e) {
-      debugPrint('error $e');
-    }
+  @override
+  void onInit() {
+    chearCheckBox();
+    super.onInit();
   }
 
-/////////////////////////
+  void chearCheckBox() {
+    checkBoxList = _checkBoxList;
+    update();
+    refresh();
+  }
+
+  // submit form
+  static const STATUS_SUCCESS = 'SUCCESS';
+
+  Future<void> submit(FeedbackModel submitModel) async {
+    try {
+      final url = Uri.parse(_URL);
+
+      await http
+          .post(
+        url,
+        headers: {
+          'Accept': 'application/json',
+        },
+        body: submitModel.toJson(),
+      )
+          .then((response) {
+        debugPrint('Response ${response.statusCode} : ${response.body}');
+      });
+    } catch (e) {
+      debugPrint('Error $e');
+    } finally {
+      chearCheckBox();
+    }
+  }
 }

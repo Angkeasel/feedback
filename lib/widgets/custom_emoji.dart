@@ -26,7 +26,7 @@ class CustomEmoji extends StatelessWidget {
               fit: BoxFit.cover,
               height: 150,
             ),
-            SizedBox(
+            const SizedBox(
               height: 8,
             ),
             Text(

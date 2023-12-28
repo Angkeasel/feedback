@@ -31,8 +31,6 @@ class _SubmitPageState extends State<SubmitPage> {
           return const MyHomePage();
         }));
       });
-
-      homeCon.selectedItems.value = [];
     });
     super.initState();
   }
@@ -66,7 +64,7 @@ class _SubmitPageState extends State<SubmitPage> {
                   fontFamily: 'Battambang'),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Expanded(
