@@ -124,8 +124,9 @@ class _SubQuestionPageState extends State<SubQuestionPage> {
               .isNotEmpty) {
             showLoading(context: context);
             final submitData = FeedbackModel(
-                feedback: feedback.map((e) => e.titleEn).toList().join(','),
-                reason: widget.emojiModel.textEn);
+              feedback: widget.emojiModel.textEn,
+              reason: feedback.map((e) => e.titleEn).toList().join(','),
+            );
             await homeCon.submit(submitData).then(
               (value) {
                 hideLoading(context: context);
@@ -144,9 +145,7 @@ class _SubQuestionPageState extends State<SubQuestionPage> {
               const EdgeInsets.only(left: 20, right: 20, bottom: 30, top: 20),
           child: Container(
             width: MediaQuery.of(context).size.width * 0.2,
-            padding: lController.isKhmer
-                ? const EdgeInsets.all(10)
-                : const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
                 color: homeCon.checkBoxList

@@ -170,10 +170,10 @@ class L {
     );
   }
 
-  /// `KOFI is employer of choice; We are committed to providing you with good experiences`
+  /// `KOFI is employer of choice ; We are committed to providing you with good experiences`
   String get qoute {
     return Intl.message(
-      'KOFI is employer of choice; We are committed to providing you with good experiences',
+      'KOFI is employer of choice ; We are committed to providing you with good experiences',
       name: 'qoute',
       desc: '',
       args: [],

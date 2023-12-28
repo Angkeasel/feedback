@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'generated/l10n.dart';
-import 'home.dart';
+
 import 'widgets/custom_alert_snackbar.dart';
 
 class SubmitPage extends StatefulWidget {
@@ -21,15 +21,15 @@ class _SubmitPageState extends State<SubmitPage> {
   BuildContext? contexts;
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 2), () async {
+    Future.delayed(const Duration(seconds: 1), () async {
       showLoading(context: context);
       await Future.delayed(const Duration(seconds: 1), () {
         hideLoading(context: context);
         Navigator.popUntil(context, (route) => route.isFirst);
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) {
-          return const MyHomePage();
-        }));
+        // Navigator.pushReplacement(context,
+        //     MaterialPageRoute(builder: (context) {
+        //   return const MyHomePage();
+        // }));
       });
     });
     super.initState();

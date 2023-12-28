@@ -33,7 +33,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "needImprovement":
             MessageLookupByLibrary.simpleMessage("Need Improvement"),
         "qoute": MessageLookupByLibrary.simpleMessage(
-            "KOFI is employer of choice; We are committed to providing you with good experiences"),
+            "KOFI is employer of choice ; We are committed to providing you with good experiences"),
         "quality": MessageLookupByLibrary.simpleMessage("Quality"),
         "quantity": MessageLookupByLibrary.simpleMessage("Quantity"),
         "service": MessageLookupByLibrary.simpleMessage("Service"),

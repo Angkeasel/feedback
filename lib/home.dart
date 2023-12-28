@@ -44,159 +44,185 @@ class _MyHomePageState extends State<MyHomePage> {
       //   backgroundColor: Colors.white,
       // ),
       body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Align(
-              alignment: Alignment.topRight,
-              child: GestureDetector(
-                onTap: () {
-                  setState(() {
-                    lController.toggleLanguage();
-                  });
-                },
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 25),
-                  child: Container(
-                    height: 50,
-                    width: 100,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border:
-                            Border.all(color: AppColor.mainColor, width: 1)),
-                    child: Center(
-                      child: Text(
-                        lController.isKhmer ? 'English' : 'ភាសាខ្មែរ',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontFamily: 'Battambang',
-                            fontWeight: FontWeight.w700,
-                            fontSize: lController.isKhmer ? 18 : 16),
+        child: Padding(
+          padding: const EdgeInsets.only(top: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Align(
+                alignment: Alignment.topRight,
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      lController.toggleLanguage();
+                    });
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 25),
+                    child: Container(
+                      height: 50,
+                      width: 100,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border:
+                              Border.all(color: AppColor.mainColor, width: 1)),
+                      child: Center(
+                        child: Text(
+                          lController.isKhmer ? 'English' : 'ភាសាខ្មែរ',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontFamily: 'Battambang',
+                              fontWeight: FontWeight.w700,
+                              fontSize: lController.isKhmer ? 18 : 16),
+                        ),
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-            Expanded(
-              flex: 1,
-              child: Container(
-                  height: 100,
-                  width: double.infinity,
-                  color: Colors.white,
-                  child: Image.asset('assets/png/Group 48.png')),
-            ),
-            Container(
-              padding: lController.isKhmer
-                  ? const EdgeInsets.only(left: 10, right: 15)
-                  : const EdgeInsets.only(top: 5, bottom: 5),
-              //color: Colors.amber,
-              child: Text(
-                L.current.shareYourExperienceWithCoffeeRestaurant,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.w700,
-                  fontFamily: 'Battambang',
-                ),
+              Expanded(
+                flex: 1,
+                child: Container(
+                    height: 100,
+                    width: double.infinity,
+                    color: Colors.white,
+                    child: Image.asset('assets/png/Group 48.png')),
               ),
-            ),
-            orientation == Orientation.portrait
-                ? Expanded(
-                    flex: 5,
-                    child: SingleChildScrollView(
-                      child: Container(
-                        clipBehavior: Clip.antiAlias,
-                        decoration: const BoxDecoration(
-                          gradient: RadialGradient(
-                            colors: [
-                              Colors.black,
-                              Colors.white,
-                            ],
-                          ),
-                        ),
-                        child: GridView.builder(
-                          itemBuilder: (_, index) {
-                            final emojiModel = homeCon.emojiList[index];
-                            return CustomEmoji(
-                              image: emojiModel.emoji,
-                              text: lController.isKhmer
-                                  ? emojiModel.textKh
-                                  : emojiModel.textEn,
-                              isPadding: 15,
-                              onTap: () async {
-                                _pushToSubQuestionPage(emojiModel);
-                              },
-                            );
-                          },
-                          itemCount: homeCon.emojiList.length,
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 2,
-                            mainAxisSpacing: 2,
-                          ),
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                        ),
-                      ),
-                    ),
-                  )
-                : Expanded(
-                    flex: 5,
-                    child: SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: lController.isKhmer
-                            ? homeCon.emojiList.asMap().entries.map((e) {
-                                return Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 40, right: 40),
-                                  child: CustomEmoji(
-                                    image: e.value.emoji,
-                                    text: e.value.textKh,
-                                    isPadding: 10,
-                                    onTap: () {
-                                      _pushToSubQuestionPage(e.value);
-                                    },
-                                  ),
-                                );
-                              }).toList()
-                            : homeCon.emojiList.asMap().entries.map((e) {
-                                return Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 40, right: 40),
-                                  child: CustomEmoji(
-                                    image: e.value.emoji,
-                                    text: e.value.textEn,
-                                    isPadding: 18,
-                                    onTap: () {
-                                      _pushToSubQuestionPage(e.value);
-                                    },
-                                  ),
-                                );
-                              }).toList(),
-                      ),
-                    ),
-                  ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Text(
-                L.current.qoute,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                    fontFamily: 'Battambang',
-                    fontSize: 14,
+              Container(
+                padding: lController.isKhmer
+                    ? const EdgeInsets.only(left: 10, right: 15)
+                    : const EdgeInsets.only(top: 5, bottom: 5),
+                //color: Colors.amber,
+                child: Text(
+                  L.current.shareYourExperienceWithCoffeeRestaurant,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 25,
                     fontWeight: FontWeight.w700,
-                    color: AppColor.mainColor),
+                    fontFamily: 'Battambang',
+                  ),
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 20,
-            )
-          ],
+              orientation == Orientation.portrait
+                  ? Expanded(
+                      flex: 5,
+                      child: SingleChildScrollView(
+                        child: Container(
+                          clipBehavior: Clip.antiAlias,
+                          decoration: const BoxDecoration(
+                            gradient: RadialGradient(
+                              colors: [
+                                Colors.black,
+                                Colors.white,
+                              ],
+                            ),
+                          ),
+                          child: GridView.builder(
+                            itemBuilder: (_, index) {
+                              final emojiModel = homeCon.emojiList[index];
+                              return CustomEmoji(
+                                image: emojiModel.emoji,
+                                text: lController.isKhmer
+                                    ? emojiModel.textKh
+                                    : emojiModel.textEn,
+                                isPadding: 15,
+                                onTap: () async {
+                                  _pushToSubQuestionPage(emojiModel);
+                                },
+                              );
+                            },
+                            itemCount: homeCon.emojiList.length,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 2,
+                              mainAxisSpacing: 2,
+                            ),
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                          ),
+                        ),
+                      ),
+                    )
+                  : Expanded(
+                      flex: 5,
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: lController.isKhmer
+                              ? homeCon.emojiList.asMap().entries.map((e) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 40, right: 40),
+                                    child: CustomEmoji(
+                                      image: e.value.emoji,
+                                      text: e.value.textKh,
+                                      isPadding: 10,
+                                      onTap: () {
+                                        _pushToSubQuestionPage(e.value);
+                                      },
+                                    ),
+                                  );
+                                }).toList()
+                              : homeCon.emojiList.asMap().entries.map((e) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 40, right: 40),
+                                    child: CustomEmoji(
+                                      image: e.value.emoji,
+                                      text: e.value.textEn,
+                                      isPadding: 18,
+                                      onTap: () {
+                                        _pushToSubQuestionPage(e.value);
+                                      },
+                                    ),
+                                  );
+                                }).toList(),
+                        ),
+                      ),
+                    ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Text(
+                  L.current.qoute,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                      fontFamily: 'Battambang',
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                      color: AppColor.mainColor),
+                ),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    '@copyright by KOFI ',
+                    style: TextStyle(
+                        fontFamily: 'Battambang',
+                        fontWeight: FontWeight.w800,
+                        fontSize: 12),
+                  ),
+                  Text(
+                    'and developed by IT&HR team',
+                    style: TextStyle(
+                        fontFamily: 'Battambang',
+                        fontWeight: FontWeight.w500,
+                        color: Colors.grey.shade600),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              )
+            ],
+          ),
         ),
       ),
     );
