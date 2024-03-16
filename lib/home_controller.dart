@@ -7,8 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
-const String _URL =
-    'https://script.google.com/macros/s/AKfycbyDT04IVQIC5YwsMfAtG6hiz_4M6ZZOtHjtvyIZWDYZLznoX0FsOlpKV9P5-bmJhFeeUA/exec';
+import 'widgets/custom_alert_snackbar.dart';
+
+const String URL =
+    'https://script.google.com/macros/s/AKfycbzuqZxyDxEg9qDfvzPBvZznD1s_RkQ1muAjbFzUi2wRB9YNsncYFgHS_N3YwWeUQsPu/exec';
 //'https://script.google.com/macros/s/AKfycby3rYaTH-eaZNI9_Z0UvYiegEMDC7rtyNC13MIV7G7JxSWeY5_HG4xPyA168vswJGRW/exec';
 // 'https://script.google.com/macros/s/AKfycbw16_IlrCQDwXqkenqiCXcbw4ekWMQl5d14s1L_eidKGlRFnTLH8rbjLoiuIUW0YF-H/exec';
 
@@ -42,6 +44,7 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     chearCheckBox();
+    URL;
     super.onInit();
   }
 
@@ -54,9 +57,9 @@ class HomeController extends GetxController {
   // submit form
   static const STATUS_SUCCESS = 'SUCCESS';
 
-  Future<void> submit(FeedbackModel submitModel) async {
+  Future<void> submit(FeedbackModel submitModel, BuildContext context) async {
     try {
-      final url = Uri.parse(_URL);
+      final url = Uri.parse(URL);
 
       await http
           .post(
@@ -67,8 +70,25 @@ class HomeController extends GetxController {
         body: submitModel.toJson(),
       )
           .then((response) {
-        debugPrint('Response ${response.statusCode} : ${response.body}');
+        debugPrint('status code:${response.statusCode}');
+        if (response.statusCode == 302) {
+          hideLoading(context: context);
+          debugPrint(response.body);
+        } else {
+          debugPrint(response.body);
+        }
       });
+
+      //     .then((response) {
+      //   debugPrint('Response ${response.statusCode} : ${response.body}');
+      //   hideLoading(context: context);
+      //   Navigator.push(
+      //     context,
+      //     MaterialPageRoute(
+      //       builder: (context) => const SubmitPage(),
+      //     ),
+      //   );
+      // });
     } catch (e) {
       debugPrint('Error $e');
     } finally {
