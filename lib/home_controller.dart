@@ -3,6 +3,7 @@
 import 'package:feedback/model/checkbox_model.dart';
 import 'package:feedback/model/emoji_model.dart';
 import 'package:feedback/model/feedback_model.dart';
+import 'package:feedback/submit_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -10,7 +11,7 @@ import 'package:http/http.dart' as http;
 import 'widgets/custom_alert_snackbar.dart';
 
 const String URL =
-    'https://script.google.com/macros/s/AKfycbzuqZxyDxEg9qDfvzPBvZznD1s_RkQ1muAjbFzUi2wRB9YNsncYFgHS_N3YwWeUQsPu/exec';
+    'https://script.google.com/macros/s/AKfycbynZ4w9-HRmpYADMwcpELE3Jh1hmMen75ctVShviKiaFTHUhHiWZ6Knb97CxZVjL8KLLg/exec';
 //'https://script.google.com/macros/s/AKfycby3rYaTH-eaZNI9_Z0UvYiegEMDC7rtyNC13MIV7G7JxSWeY5_HG4xPyA168vswJGRW/exec';
 // 'https://script.google.com/macros/s/AKfycbw16_IlrCQDwXqkenqiCXcbw4ekWMQl5d14s1L_eidKGlRFnTLH8rbjLoiuIUW0YF-H/exec';
 
@@ -71,11 +72,17 @@ class HomeController extends GetxController {
       )
           .then((response) {
         debugPrint('status code:${response.statusCode}');
-        if (response.statusCode == 302) {
+        if (response.statusCode == 302 || response.statusCode == 200) {
           hideLoading(context: context);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const SubmitPage(),
+            ),
+          );
           debugPrint(response.body);
         } else {
-          debugPrint(response.body);
+          debugPrint('${response.statusCode} ${response.body}');
         }
       });
 
