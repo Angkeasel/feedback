@@ -140,6 +140,86 @@ class L {
     );
   }
 
+  /// `Next`
+  String get next {
+    return Intl.message(
+      'Next',
+      name: 'next',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Good Morning`
+  String get goodmorning {
+    return Intl.message(
+      'Good Morning',
+      name: 'goodmorning',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Good Afternoon`
+  String get goodafternoon {
+    return Intl.message(
+      'Good Afternoon',
+      name: 'goodafternoon',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Good Evening`
+  String get goodevening {
+    return Intl.message(
+      'Good Evening',
+      name: 'goodevening',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Good Night`
+  String get goodnight {
+    return Intl.message(
+      'Good Night',
+      name: 'goodnight',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `ShowRoom`
+  String get showroom {
+    return Intl.message(
+      'ShowRoom',
+      name: 'showroom',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Head Office`
+  String get headoffice {
+    return Intl.message(
+      'Head Office',
+      name: 'headoffice',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please Choose Your Current Work Location`
+  String get location {
+    return Intl.message(
+      'Please Choose Your Current Work Location',
+      name: 'location',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Share your experience with KOFI Canteen`
   String get shareYourExperienceWithCoffeeRestaurant {
     return Intl.message(
@@ -160,10 +240,10 @@ class L {
     );
   }
 
-  /// `Choose your feedbacks below that you think is`
+  /// `Choose your feedbacks below that you think that`
   String get chooseFeedbacksBelowThatYouThinkIs {
     return Intl.message(
-      'Choose your feedbacks below that you think is',
+      'Choose your feedbacks below that you think that',
       name: 'chooseFeedbacksBelowThatYouThinkIs',
       desc: '',
       args: [],

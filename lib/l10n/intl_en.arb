@@ -9,8 +9,16 @@
     "service": "Service",
     "hygiene": "Hygiene",
     "submit": "Submit",
+    "next": "Next",
+    "goodmorning": "Good Morning",
+    "goodafternoon": "Good Afternoon",
+    "goodevening": "Good Evening",
+    "goodnight": "Good Night",
+    "showroom": "ShowRoom",
+    "headoffice": "Head Office",
+    "location": "Please Choose Your Current Work Location",
     "shareYourExperienceWithCoffeeRestaurant": "Share your experience with KOFI Canteen",
     "thankYouForYourFeedback": "Thanks you for your feedback.",
-    "chooseFeedbacksBelowThatYouThinkIs": "Choose your feedbacks below that you think is",
-    "qoute":"KOFI is employer of choice ; We are committed to providing you with good experiences"
+    "chooseFeedbacksBelowThatYouThinkIs": "Choose your feedbacks below that you think that",
+    "qoute": "KOFI is employer of choice ; We are committed to providing you with good experiences"
 }

@@ -18,6 +18,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final homeCon = Get.put(HomeController());
   final lController = Get.find<LanguageController>();
+  String greeting = '';
 
   void _pushToSubQuestionPage(EmojiModel emojiModel) {
     Navigator.push(
@@ -32,17 +33,34 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  // @override
+  // void initState() {
+  //   setState(() {
+  //     checkTime();
+  //   });
+  //   super.initState();
+  // }
+
+  // String checkTime() {
+  //   var now = DateTime.now();
+  //   int hours = now.hour;
+  //   if (hours >= 1 && hours <= 12) {
+  //     greeting = 'Good Morning 🌞';
+  //   } else if (hours >= 12 && hours <= 16) {
+  //     greeting = 'Good Afternoon ⛅️';
+  //   } else if (hours >= 16 && hours <= 21) {
+  //     greeting = 'Good Evening 🌚';
+  //   } else if (hours >= 21 && hours <= 24) {
+  //     greeting = 'Good Night 😴';
+  //   }
+  //   return greeting;
+  // }
+
   @override
   Widget build(BuildContext context) {
     final orientation = MediaQuery.of(context).orientation;
     return Scaffold(
       backgroundColor: Colors.white,
-      // appBar: AppBar(
-      //   automaticallyImplyLeading: false,
-      //   centerTitle: true,
-      //   elevation: 0,
-      //   backgroundColor: Colors.white,
-      // ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(top: 20),
@@ -50,6 +68,19 @@ class _MyHomePageState extends State<MyHomePage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              // Align(
+              //   alignment: Alignment.topLeft,
+              //   child: Padding(
+              //     padding: const EdgeInsets.only(left: 50),
+              //     child: Text(
+              //       greeting,
+              //       style: TextStyle(
+              //           fontFamily: 'Battambang',
+              //           fontWeight: FontWeight.w700,
+              //           fontSize: lController.isKhmer ? 20 : 18),
+              //     ),
+              //   ),
+              // ),
               Align(
                 alignment: Alignment.topRight,
                 child: GestureDetector(
@@ -106,7 +137,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               orientation == Orientation.portrait
                   ? Expanded(
-                      flex: 5,
+                      flex: context.isPhone ? 4 : 5,
                       child: SingleChildScrollView(
                         child: Container(
                           clipBehavior: Clip.antiAlias,
@@ -134,10 +165,16 @@ class _MyHomePageState extends State<MyHomePage> {
                             },
                             itemCount: homeCon.emojiList.length,
                             gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
+                                SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
-                              crossAxisSpacing: 2,
-                              mainAxisSpacing: 2,
+                              crossAxisSpacing: 1,
+                              mainAxisSpacing: 1,
+                              childAspectRatio:
+                                  context.isPhone && lController.isKhmer
+                                      ? 6 / 5.5
+                                      : context.isPhone && !lController.isKhmer
+                                          ? 6 / 5
+                                          : 1.0,
                             ),
                             physics: const NeverScrollableScrollPhysics(),
                             shrinkWrap: true,

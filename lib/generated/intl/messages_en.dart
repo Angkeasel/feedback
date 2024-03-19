@@ -24,14 +24,22 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "chooseFeedbacksBelowThatYouThinkIs":
             MessageLookupByLibrary.simpleMessage(
-                "Choose your feedbacks below that you think is"),
+                "Choose your feedbacks below that you think that"),
         "couldBeBetter":
             MessageLookupByLibrary.simpleMessage("Could be better"),
         "excellent": MessageLookupByLibrary.simpleMessage("Excellent"),
         "good": MessageLookupByLibrary.simpleMessage("Good"),
+        "goodafternoon": MessageLookupByLibrary.simpleMessage("Good Afternoon"),
+        "goodevening": MessageLookupByLibrary.simpleMessage("Good Evening"),
+        "goodmorning": MessageLookupByLibrary.simpleMessage("Good Morning"),
+        "goodnight": MessageLookupByLibrary.simpleMessage("Good Night"),
+        "headoffice": MessageLookupByLibrary.simpleMessage("Head Office"),
         "hygiene": MessageLookupByLibrary.simpleMessage("Hygiene"),
+        "location": MessageLookupByLibrary.simpleMessage(
+            "Please Choose Your Current Work Location"),
         "needImprovement":
             MessageLookupByLibrary.simpleMessage("Need Improvement"),
+        "next": MessageLookupByLibrary.simpleMessage("Next"),
         "qoute": MessageLookupByLibrary.simpleMessage(
             "KOFI is employer of choice ; We are committed to providing you with good experiences"),
         "quality": MessageLookupByLibrary.simpleMessage("Quality"),
@@ -40,6 +48,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "shareYourExperienceWithCoffeeRestaurant":
             MessageLookupByLibrary.simpleMessage(
                 "Share your experience with KOFI Canteen"),
+        "showroom": MessageLookupByLibrary.simpleMessage("ShowRoom"),
         "submit": MessageLookupByLibrary.simpleMessage("Submit"),
         "thankYouForYourFeedback": MessageLookupByLibrary.simpleMessage(
             "Thanks you for your feedback.")

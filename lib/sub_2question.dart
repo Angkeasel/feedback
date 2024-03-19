@@ -1,51 +1,26 @@
-import 'package:feedback/config/constants/app_colors.dart';
 import 'package:feedback/home_controller.dart';
-import 'package:feedback/language_controller.dart';
-import 'package:feedback/model/emoji_model.dart';
 
+import 'package:feedback/model/feedback_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'config/constants/app_colors.dart';
+
 import 'generated/l10n.dart';
-import 'model/feedback_model.dart';
+import 'language_controller.dart';
+import 'model/location_model.dart';
+import 'widgets/custom_alert_snackbar.dart';
 
-import 'sub_2question.dart';
-
-class SubQuestionPage extends StatefulWidget {
-  final EmojiModel emojiModel;
-  const SubQuestionPage({
-    super.key,
-    required this.emojiModel,
-  });
+class Sub2Question extends StatefulWidget {
+  final FeedbackModel? feedbackModel;
+  const Sub2Question({super.key, this.feedbackModel});
 
   @override
-  State<SubQuestionPage> createState() => _SubQuestionPageState();
+  State<Sub2Question> createState() => _Sub2QuestionState();
 }
 
-class _SubQuestionPageState extends State<SubQuestionPage> {
+class _Sub2QuestionState extends State<Sub2Question> {
   final homeCon = Get.put(HomeController());
-  final lController = Get.find<LanguageController>();
-
-  @override
-  void initState() {
-    homeCon.chearCheckBox();
-    homeCon.selectedModel.locationEN = '';
-    super.initState();
-  }
-
-  void _push2ToSubQuestionPage(FeedbackModel feedbackModel) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) {
-          return Sub2Question(
-            feedbackModel: feedbackModel,
-          );
-        },
-      ),
-    );
-  }
-
   Future<void> _refresh() {
     return Future.delayed(const Duration(seconds: 1), () {
       setState(() {
@@ -57,11 +32,14 @@ class _SubQuestionPageState extends State<SubQuestionPage> {
 
   @override
   Widget build(BuildContext context) {
+    final lController = Get.find<LanguageController>();
     final orientation = MediaQuery.of(context).orientation;
+    final homeCon = Get.put(HomeController());
 
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        automaticallyImplyLeading: true,
         foregroundColor: Colors.black,
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -82,7 +60,7 @@ class _SubQuestionPageState extends State<SubQuestionPage> {
                     child: Image.asset('assets/png/Group 48.png')),
               ),
               Text(
-                '${L.current.chooseFeedbacksBelowThatYouThinkIs} ${lController.isKhmer ? widget.emojiModel.textKh : widget.emojiModel.textEn}?',
+                '${L.current.location} ',
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                     fontFamily: 'Battambang',
@@ -94,44 +72,41 @@ class _SubQuestionPageState extends State<SubQuestionPage> {
                 height: 20,
               ),
               Expanded(
-                flex: 3,
+                flex: 2,
                 child: ListView.builder(
-                  // physics: const NeverScrollableScrollPhysics(),
-                  itemCount: homeCon.checkBoxList.length,
+                  itemCount: homeCon.locationList.length,
                   itemBuilder: (context, index) {
-                    return CheckboxListTile(
-                      controlAffinity: ListTileControlAffinity.platform,
+                    return RadioListTile(
                       contentPadding: lController.isKhmer
                           ? EdgeInsets.only(
                               left: orientation == Orientation.portrait
-                                  ? 80
-                                  : 250,
-                              right: orientation == Orientation.portrait
-                                  ? 80
-                                  : 230)
+                                  ? 60
+                                  : 260,
+                            )
                           : EdgeInsets.only(
                               left: orientation == Orientation.portrait
-                                  ? 50
-                                  : 150,
-                              right: orientation == Orientation.portrait
-                                  ? 50
-                                  : 150),
+                                  ? 60
+                                  : 180,
+                            ),
+                      activeColor: AppColor.mainColor,
                       title: Text(
                         lController.isKhmer
-                            ? homeCon.checkBoxList[index].titleKh
-                            : homeCon.checkBoxList[index].titleEn,
+                            ? homeCon.locationList[index].locationKH!
+                            : homeCon.locationList[index].locationEN!,
                         style: const TextStyle(
                           fontFamily: 'Battambang',
                           fontSize: 25,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                      activeColor: AppColor.mainColor,
-                      value: homeCon.checkBoxList[index].selected,
+                      value: homeCon.locationList[index],
+                      groupValue: homeCon.selectedModel,
                       onChanged: (value) {
+                        // Update the selected model when a radio button is selected
                         setState(() {
-                          homeCon.checkBoxList[index].selected = value ?? false;
+                          homeCon.selectedModel = value as LocationBoxModel;
                         });
+                        debugPrint('hello ${homeCon.selectedModel.locationEN}');
                       },
                     );
                   },
@@ -142,18 +117,14 @@ class _SubQuestionPageState extends State<SubQuestionPage> {
         ),
       ),
       bottomNavigationBar: GestureDetector(
-        onTap: () {
-          final feedback =
-              homeCon.checkBoxList.where((element) => element.selected);
-          if (homeCon.checkBoxList
-              .where((element) => element.selected)
-              .isNotEmpty) {
+        onTap: () async {
+          if (homeCon.selectedModel.locationEN!.isNotEmpty) {
+            showLoading(context: context);
             final submitData = FeedbackModel(
-              feedback: widget.emojiModel.textEn,
-              reason: feedback.map((e) => e.titleEn).toList().join(','),
-            );
-            _push2ToSubQuestionPage(submitData);
-            // homeCon.submit(submitData, context);
+                feedback: widget.feedbackModel!.feedback,
+                reason: widget.feedbackModel!.reason,
+                location: homeCon.selectedModel.locationEN);
+            await homeCon.submit(submitData, context);
           }
         },
         child: Padding(
@@ -164,14 +135,11 @@ class _SubQuestionPageState extends State<SubQuestionPage> {
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(30),
-                color: homeCon.checkBoxList
-                        .where((element) => element.selected)
-                        .isNotEmpty
-                    ? AppColor.mainColor
-                    : Colors.grey.shade400),
+                color: homeCon.selectedModel.locationEN!.isEmpty
+                    ? Colors.grey.shade400
+                    : AppColor.mainColor),
             child: Text(
-              //check again
-              L.current.next,
+              L.current.submit,
               textAlign: TextAlign.center,
               style: const TextStyle(
                   fontFamily: 'Battambang',

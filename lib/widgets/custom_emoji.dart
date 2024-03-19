@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CustomEmoji extends StatelessWidget {
   final String? image;
@@ -13,7 +14,6 @@ class CustomEmoji extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        height: 250,
         decoration: const BoxDecoration(
           color: Colors.white,
         ),
@@ -24,16 +24,16 @@ class CustomEmoji extends StatelessWidget {
             Image.asset(
               image ?? '',
               fit: BoxFit.cover,
-              height: 150,
+              height: context.isPhone ? 100 : 150,
             ),
-            const SizedBox(
-              height: 8,
+            SizedBox(
+              height: context.isPhone ? 5 : 8,
             ),
             Text(
               text ?? '',
               maxLines: 3,
-              style: const TextStyle(
-                  fontSize: 20,
+              style: TextStyle(
+                  fontSize: context.isPhone ? 16 : 20,
                   color: Colors.black,
                   fontWeight: FontWeight.w600,
                   fontFamily: 'Battambang'),

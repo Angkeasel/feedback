@@ -28,8 +28,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "couldBeBetter": MessageLookupByLibrary.simpleMessage("គួរកែតម្រូវ"),
         "excellent": MessageLookupByLibrary.simpleMessage("ពេញចិត្តខ្លាំង"),
         "good": MessageLookupByLibrary.simpleMessage("ពេញចិត្ត"),
+        "goodafternoon": MessageLookupByLibrary.simpleMessage("ទិវាសួស្ដី"),
+        "goodevening": MessageLookupByLibrary.simpleMessage("សាយណ្ហសួស្ដី"),
+        "goodmorning": MessageLookupByLibrary.simpleMessage("អរុណសួស្ដី"),
+        "goodnight": MessageLookupByLibrary.simpleMessage("រាត្រីសួស្ដី"),
+        "headoffice": MessageLookupByLibrary.simpleMessage(
+            "ការិយាល័យទីស្នាក់ការកណ្ដាល(head office)"),
         "hygiene": MessageLookupByLibrary.simpleMessage("អនាម័យ"),
+        "location": MessageLookupByLibrary.simpleMessage(
+            "សូមជ្រើសរើសទីតាំងដែលអ្នកកំពុងធ្វើការ"),
         "needImprovement": MessageLookupByLibrary.simpleMessage("មិនពេញចិត្ត"),
+        "next": MessageLookupByLibrary.simpleMessage("បន្ត"),
         "qoute": MessageLookupByLibrary.simpleMessage(
             "ខូហ្វីជាជម្រើសដ៏ប្រសើរ យើងប្តេជ្ញាផ្តល់ឱ្យលោកអ្នកនូវបទពិសោធន៍ល្អៗ"),
         "quality": MessageLookupByLibrary.simpleMessage("គុណភាព"),
@@ -38,6 +47,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "shareYourExperienceWithCoffeeRestaurant":
             MessageLookupByLibrary.simpleMessage(
                 "ចែករំលែកបទពិសោធន៍របស់អ្នកជាមួយអាហារដ្ឋានខូហ្វី"),
+        "showroom":
+            MessageLookupByLibrary.simpleMessage("ការិយាល័យផ្នែកលក់(showroom)"),
         "submit": MessageLookupByLibrary.simpleMessage("បញ្ជូន"),
         "thankYouForYourFeedback": MessageLookupByLibrary.simpleMessage(
             "សូមអរគុណសម្រាប់ការចូលរួមផ្ដល់មតិរបស់អ្នក!")
