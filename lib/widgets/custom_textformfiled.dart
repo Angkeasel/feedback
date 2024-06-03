@@ -7,6 +7,9 @@ class CustomTextFormFiled extends StatelessWidget {
   final FormFieldSetter<String>? onSaved;
   final ValueChanged<String>? onChanges;
   final String? Function(String?)? validator;
+  final int? maxLines;
+  final EdgeInsetsGeometry? contentPadding;
+  final TextInputAction? textInputAction;
   // final FormFieldValidator<String>? validator;
   final TextInputType? keyboardType;
   final Widget? suffixIcon;
@@ -26,7 +29,10 @@ class CustomTextFormFiled extends StatelessWidget {
       this.suffixIcon,
       this.initialValue,
       this.obscureText,
-      this.isValidate = false});
+      this.contentPadding,
+      this.textInputAction,
+      this.isValidate = false,
+      this.maxLines});
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +49,8 @@ class CustomTextFormFiled extends StatelessWidget {
             height: 10,
           ),
           TextFormField(
+            textInputAction: textInputAction,
+            maxLines: maxLines,
             validator: validator,
             obscureText: obscureText ?? false,
             initialValue: initialValue,
@@ -55,6 +63,7 @@ class CustomTextFormFiled extends StatelessWidget {
               labelStyle: const TextStyle(color: Colors.black),
               enabled: true,
               filled: true,
+              contentPadding: contentPadding,
               fillColor: const Color(0xffF1F1F1),
               enabledBorder: isValidate!
                   ? OutlineInputBorder(
