@@ -2,14 +2,13 @@ import 'package:feedback/config/constants/app_colors.dart';
 import 'package:feedback/home_controller.dart';
 import 'package:feedback/language_controller.dart';
 import 'package:feedback/model/emoji_model.dart';
+import 'package:feedback/sub_question2.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'generated/l10n.dart';
 import 'model/feedback_model.dart';
-
-import 'sub_2question.dart';
 
 class SubQuestionPage extends StatefulWidget {
   final EmojiModel emojiModel;
@@ -38,7 +37,7 @@ class _SubQuestionPageState extends State<SubQuestionPage> {
       context,
       MaterialPageRoute(
         builder: (context) {
-          return Sub2Question(
+          return SubScreen2(
             feedbackModel: feedbackModel,
           );
         },
@@ -153,7 +152,6 @@ class _SubQuestionPageState extends State<SubQuestionPage> {
               reason: feedback.map((e) => e.titleEn).toList().join(','),
             );
             _push2ToSubQuestionPage(submitData);
-            // homeCon.submit(submitData, context);
           }
         },
         child: Padding(
@@ -170,7 +168,6 @@ class _SubQuestionPageState extends State<SubQuestionPage> {
                     ? AppColor.mainColor
                     : Colors.grey.shade400),
             child: Text(
-              //check again
               L.current.next,
               textAlign: TextAlign.center,
               style: const TextStyle(

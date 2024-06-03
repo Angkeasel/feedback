@@ -9,17 +9,18 @@ import 'config/constants/app_colors.dart';
 import 'generated/l10n.dart';
 import 'language_controller.dart';
 import 'model/location_model.dart';
+
 import 'widgets/custom_alert_snackbar.dart';
 
-class Sub2Question extends StatefulWidget {
+class SubQuestion3 extends StatefulWidget {
   final FeedbackModel? feedbackModel;
-  const Sub2Question({super.key, this.feedbackModel});
+  const SubQuestion3({super.key, this.feedbackModel});
 
   @override
-  State<Sub2Question> createState() => _Sub2QuestionState();
+  State<SubQuestion3> createState() => _SubQuestion3State();
 }
 
-class _Sub2QuestionState extends State<Sub2Question> {
+class _SubQuestion3State extends State<SubQuestion3> {
   final homeCon = Get.put(HomeController());
   Future<void> _refresh() {
     return Future.delayed(const Duration(seconds: 1), () {
@@ -39,7 +40,16 @@ class _Sub2QuestionState extends State<Sub2Question> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        automaticallyImplyLeading: true,
+        leading: IconButton(
+            onPressed: () {
+              setState(() {
+                homeCon.chearCheckBox();
+                Navigator.pop(context);
+                Navigator.pop(context);
+              });
+            },
+            icon: const Icon(Icons.arrow_back)),
+        automaticallyImplyLeading: false,
         foregroundColor: Colors.black,
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -121,9 +131,11 @@ class _Sub2QuestionState extends State<Sub2Question> {
           if (homeCon.selectedModel.locationEN!.isNotEmpty) {
             showLoading(context: context);
             final submitData = FeedbackModel(
-                feedback: widget.feedbackModel!.feedback,
-                reason: widget.feedbackModel!.reason,
-                location: homeCon.selectedModel.locationEN);
+              feedback: widget.feedbackModel!.feedback,
+              reason: widget.feedbackModel!.reason,
+              comments: widget.feedbackModel!.comments,
+              location: homeCon.selectedModel.locationEN,
+            );
             await homeCon.submit(submitData, context);
           }
         },
