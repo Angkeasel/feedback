@@ -5,11 +5,19 @@ class FeedbackModel {
   final String reason;
   final String? location;
 
-  FeedbackModel({required this.feedback, required this.reason, this.location});
+  final String? comments;
+
+  FeedbackModel({
+    required this.feedback,
+    required this.reason,
+    this.location,
+    this.comments,
+  });
 
   Map<String, dynamic> toJson() => {
         FeedbackFields.feedback: feedback,
         FeedbackFields.reason: reason,
-        FeedbackFields.location: location
+        FeedbackFields.location: location,
+        FeedbackFields.comments: comments,
       };
 }
