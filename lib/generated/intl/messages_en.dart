@@ -36,7 +36,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "headoffice": MessageLookupByLibrary.simpleMessage("Head Office"),
         "hygiene": MessageLookupByLibrary.simpleMessage("Hygiene"),
         "location": MessageLookupByLibrary.simpleMessage(
-            "Please Choose Your Current Work Location"),
+            "Please choose the location you want to servey "),
         "needImprovement":
             MessageLookupByLibrary.simpleMessage("Need Improvement"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),

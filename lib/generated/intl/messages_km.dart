@@ -36,7 +36,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "ការិយាល័យទីស្នាក់ការកណ្ដាល(head office)"),
         "hygiene": MessageLookupByLibrary.simpleMessage("អនាម័យ"),
         "location": MessageLookupByLibrary.simpleMessage(
-            "សូមជ្រើសរើសទីតាំងដែលអ្នកកំពុងធ្វើការ"),
+            "សូមជ្រើសរើសទីតាំងដែលអ្នកចង់ធ្វើការវាយតម្លៃ"),
         "needImprovement": MessageLookupByLibrary.simpleMessage("មិនពេញចិត្ត"),
         "next": MessageLookupByLibrary.simpleMessage("បន្ត"),
         "qoute": MessageLookupByLibrary.simpleMessage(

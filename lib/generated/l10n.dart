@@ -210,10 +210,10 @@ class L {
     );
   }
 
-  /// `Please Choose Your Current Work Location`
+  /// `Please choose the location you want to servey `
   String get location {
     return Intl.message(
-      'Please Choose Your Current Work Location',
+      'Please choose the location you want to servey ',
       name: 'location',
       desc: '',
       args: [],
